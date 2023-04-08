@@ -152,6 +152,18 @@ void keyboard(unsigned char key, int x, int y)
 	case 'c':
 		useMouseCamera = !useMouseCamera;
 		break;
+	case 'w':
+		camera->OnKeyboardchar('w');
+		break;
+	case 's':
+		camera->OnKeyboardchar('s');
+		break;
+	case 'a':
+		camera->OnKeyboardchar('a');
+		break;
+	case 'd':
+		camera->OnKeyboardchar('d');
+		break;
    }
 }
 
