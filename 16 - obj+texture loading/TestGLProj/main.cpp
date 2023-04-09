@@ -91,7 +91,7 @@ void display(void)
 	
 	 rotation += 0.05f; // Update rotation angle if rotation is enabled.
 	
-	 glm::vec4 lightPos = glm::rotate(rotation,0.0f, 0.0f, 1.0f) * lightPosition;
+	 glm::vec4 lightPos = glm::rotate(0.0f,0.0f, 0.0f, 1.0f) * lightPosition;
 	
 	shader.Activate(); // Bind shader.
 	shader.SetUniform("lightPosition", view*lightPos);
