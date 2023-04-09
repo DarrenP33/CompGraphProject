@@ -111,6 +111,56 @@ bool QuatCamera::OnKeyboard(int Key)
     return Ret;
 }
 
+bool QuatCamera::OnKeyboardchar(unsigned char Key)
+{
+    bool Ret = false;
+
+    switch (Key) {
+
+    case 'w':
+    {
+        if (isFlying)
+            m_pos += (glm::normalize(m_lookAtDir) * STEP_SCALE);
+        else
+            m_pos += glm::normalize((glm::vec3(m_lookAtDir.x, 0.0f, m_lookAtDir.z))) * STEP_SCALE;
+        Ret = true;
+    }
+    break;
+
+    case 's':
+    {
+        if (isFlying)
+            m_pos -= (glm::normalize(m_lookAtDir) * STEP_SCALE);
+        else
+            m_pos -= glm::normalize((glm::vec3(m_lookAtDir.x, 0.0f, m_lookAtDir.z))) * STEP_SCALE;
+        Ret = true;
+    }
+    break;
+
+    case 'a':
+    {
+        glm::vec3 Left = -glm::cross(m_lookAtDir, m_up);
+        Left = glm::normalize(Left);
+        Left *= STEP_SCALE;
+        m_pos += Left;
+        Ret = true;
+    }
+    break;
+
+    case 'd':
+    {
+        glm::vec3 Right = -glm::cross(m_up, m_lookAtDir);
+        Right = glm::normalize(Right);
+        Right *= STEP_SCALE;
+        m_pos += Right;
+        Ret = true;
+    }
+    break;
+    }
+
+    return Ret;
+}
+
 
 void QuatCamera::OnMouse(int x, int y)
 {

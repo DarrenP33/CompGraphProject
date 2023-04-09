@@ -10,6 +10,8 @@ public:
 	
 	 bool OnKeyboard(int Key);// call this when an arrow key is hit
 
+	 bool OnKeyboardchar(unsigned char);
+
 	 void OnMouse(int x, int y); // call this when mouse moves
 
 	glm::vec3 GetPos(); //returns current position
