@@ -17,6 +17,7 @@
 
 Shader shader;
 Model *mesh;
+Model* mesh2;
 Model *cube;
 Model *torus;
 Model *sphere;
@@ -33,7 +34,14 @@ glm::mat4 model;
 bool drawTorus = true;
 bool spin = false;
 float rotation = 0.0f;
+float up_down = 1.0f;
+float down_up = 0.5f;
+float right_left = 0.0f;
+bool limit_up = false;
+bool limit_down = false;
+bool on = false;
 glm::vec4 lightPosition = glm::vec4(0.0f,3.0f,0.0f,1.0f);
+glm::vec4 lightPositionSpot = glm::vec4(0.0f, 0.0f, -4.0f, 1.0f);
 
 QuatCamera * camera;
 
@@ -91,9 +99,48 @@ void display(void)
 	view = glm::lookAt(camera->GetPos(), camera->GetLookAtPoint(), camera->GetUp());
 	
 	 rotation += 0.05f; // Update rotation angle if rotation is enabled.
+
+	 if (down_up >= 1.5f)
+	 {
+		 limit_up = true;
+	 }
+	 else if (down_up <= -0.5f)
+	 {
+		 limit_up = false;
+	 }
+
+	 if (up_down <= 0.0f)
+	 {
+		 limit_down = true;
+	 }
+	 else if (up_down >= 2.0f)
+	 {
+		 limit_down = false;
+	 }
+
+	 if (limit_up)
+	 {
+		 down_up -= 0.005f;
+	 }
+	 else
+	 {
+		 down_up += 0.005f;
+	 }
+
+	 if (limit_down)
+	 {
+		 up_down += 0.005f;
+	 }
+	 else
+	 {
+		 up_down -= 0.005f;
+	 }
+	 
 	
 
 	 glm::vec4 lightPos = glm::rotate(0.0f,0.0f, 0.0f, 1.0f) * lightPosition;
+	 lightPositionSpot = glm::vec4(1.0f, -1.0f, -5.5f, 1.0f);
+	 glm::vec4 lightPosSpot = glm::rotate(0.0f, 0.0f, 0.0f, 1.0f) * lightPositionSpot;
 	
 	shader.Activate(); // Bind shader.
 	shader.SetUniform("lightPosition", view*lightPos);
@@ -101,6 +148,27 @@ void display(void)
 	shader.SetUniform("lightSpecular", glm::vec4(1.0, 1.0, 1.0, 1.0));
 	shader.SetUniform("lightAmbient", glm::vec4(1.0, 1.0, 1.0, 1.0));
 	shader.SetUniform("linearAttenuationCoefficient", .3f);
+	shader.SetUniform("lightPositionSpot", lightPosSpot);
+	shader.SetUniform("lightDiffuseSpot", glm::vec4(1.0, 1.0, 1.0, 1.0));
+	shader.SetUniform("lightSpecularSpot", glm::vec4(1.0, 1.0, 1.0, 1.0));
+	shader.SetUniform("lightAmbientSpot", glm::vec4(1.0, 1.0, 1.0, 1.0));
+	shader.SetUniform("shininessSpot", 50.0f);
+	shader.SetUniform("spotExponent", 1.0f);
+	shader.SetUniform("linearAttenuationCoefficientSpot", .5f);
+
+	if (on)
+	{
+		shader.SetUniform("on", 1.0f);
+	}
+	else
+	{
+		shader.SetUniform("on", 0.0f);
+	}
+
+	shader.SetUniform("cutOffAngle", glm::radians(1.0f));
+	shader.SetUniform("d", view * glm::vec4(0.0, 0.0, 1.0, 0.0));
+	shader.SetUniform("d", glm::vec4(0.0, 0.0, -1.0, 0.0));
+
 bool useMat = false;
 	
 	//plane2->render(view * model * glm::rotate(-45.0f,1.0f,0.0f,0.0f),projection, true); // Render current active model.
@@ -111,9 +179,9 @@ bool useMat = false;
 	monkeysphere->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	monkeysphere->setOverrideSpecularShininessMaterial(90.0f);
 	monkeysphere->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
-	monkeysphere->render(view * glm::translate(1.0f, 0.5f, 2.0f) * glm::scale(0.15f, 0.15f, 0.15f), projection, useMat);
-	monkeysphere->render(view * glm::translate(-1.0f, 0.5f, 2.0f) * glm::scale(0.15f, 0.15f, 0.15f), projection, useMat);
-	monkeysphere->render(view * glm::translate(0.0f, -0.5f, 2.0f) * glm::scale(0.15f, 0.15f, 0.15f), projection, useMat);
+	monkeysphere->render(view * glm::translate(1.0f, up_down, 2.0f) * glm::scale(0.15f, 0.15f, 0.15f), projection, useMat);
+	monkeysphere->render(view * glm::translate(-1.0f, up_down, 2.0f) * glm::scale(0.15f, 0.15f, 0.15f), projection, useMat);
+	monkeysphere->render(view * glm::translate(0.0f,down_up, 2.0f) * glm::scale(0.15f, 0.15f, 0.15f), projection, useMat);
 
 	/*
 	cylinder->setOverrideDiffuseMaterial( glm::vec4(1.0, 0.0, 0.0, 1.0));
@@ -129,7 +197,7 @@ bool useMat = false;
 	cylinder2->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	cylinder2->setOverrideSpecularShininessMaterial(90.0f);
 	cylinder2->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
-	for (int i = 3; i < 50; i += 2) {
+	for (int i = 3; i < 10; i += 2) {
 		cylinder2->render(view * glm::translate((float)i, 0.0f, 0.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
 	}
 	//cylinder2->render(view * glm::translate(3.0f, 0.0f, 0.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
@@ -140,7 +208,7 @@ bool useMat = false;
 	cylinder3->setOverrideSpecularShininessMaterial(90.0f);
 	cylinder3->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
 
-	for (int i = -3; i > -50; i -= 2) {
+	for (int i = -3; i > -10; i -= 2) {
 		cylinder3->render(view * glm::translate((float)i, 0.0f, 0.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
 	}
 	//cylinder3->render(view * glm::translate(-3.0f, 0.0f, 0.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
@@ -150,12 +218,14 @@ bool useMat = false;
 	plane->setOverrideSpecularMaterial( glm::vec4(1.0, 1.0, 1.0, 1.0));
 	plane->setOverrideSpecularShininessMaterial( 90.0f);
 	plane->setOverrideEmissiveMaterial(  glm::vec4(0.0, 0.0, 0.0, 1.0));
-	plane->render(view*glm::translate(0.0f,-5.0f,0.0f)*glm::scale(50.0f,1.0f,50.0f), projection, useMat);
+	plane->render(view*glm::translate(0.0f,-20.0f,0.0f)*glm::scale(50.0f,1.0f,50.0f), projection, useMat);
 	
 	mesh->setOverrideEmissiveMaterial(  glm::vec4(1.0, 1.0, 1.0, 1.0));
 	mesh->render(view * glm::translate(lightPos.x,lightPos.y, lightPos.z)*glm::scale(.1f,.1f,.1f), projection, false);
 
-
+	//mesh2->render(view * model, projection, true); // Render current active model.
+	mesh2->setOverrideEmissiveMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	mesh2->render(glm::translate(lightPosSpot.x, lightPosSpot.y, lightPosSpot.z + 1.0f)* glm::scale(.1f, .1f, .1f), projection, false);
 
 	glutSwapBuffers(); // Swap the buffers.
 
@@ -201,6 +271,10 @@ void keyboard(unsigned char key, int x, int y)
 	case 'd':
 		camera->OnKeyboardchar('d');
 		break;
+	case 'f':
+		on = !on;
+		break;
+
    }
 }
 
@@ -245,7 +319,10 @@ int main(int argc, char** argv)
 	plane2 = new Model(&shader,"models/texcube.obj",  "models/");
 	monkeysphere = new Model(&shader, "models/monkeysphere.obj", "models/");
 	mesh = sphere;
+	mesh2 = monkeysphere;
+
 	gun = new Model( &shader,"models/m16_1.obj", "models/");
+
 	glutMainLoop();
 
    return 0;
