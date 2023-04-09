@@ -26,6 +26,7 @@ Model *cylinder3;
 Model *plane;
 Model *plane2;
 Model *gun;
+Model* monkeysphere;
 glm::mat4 projection;
 glm::mat4 view;
 glm::mat4 model;
@@ -91,7 +92,7 @@ void display(void)
 	
 	 rotation += 0.05f; // Update rotation angle if rotation is enabled.
 	
-	 glm::vec4 lightPos = glm::rotate(rotation,0.0f, 0.0f, 1.0f) * lightPosition;
+	 glm::vec4 lightPos = glm::translate(0.0f, 1.0f, 1.0f) * lightPosition;
 	
 	shader.Activate(); // Bind shader.
 	shader.SetUniform("lightPosition", view*lightPos);
@@ -103,27 +104,45 @@ bool useMat = false;
 	
 	//plane2->render(view * model * glm::rotate(-45.0f,1.0f,0.0f,0.0f),projection, true); // Render current active model.
 	gun->render(glm::translate(1.0f,-1.0f,-2.0f)* glm::scale(.05f,.05f,.05f)*glm::rotate(-90.0f,0.0f,1.0f,0.0f) , projection, true);
-	
+
+	monkeysphere->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 0.0, 1.0));
+	monkeysphere->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	monkeysphere->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	monkeysphere->setOverrideSpecularShininessMaterial(90.0f);
+	monkeysphere->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	monkeysphere->render(view * glm::translate(1.0f, 0.5f, 2.0f) * glm::scale(0.15f, 0.15f, 0.15f), projection, useMat);
+	monkeysphere->render(view * glm::translate(-1.0f, 0.5f, 2.0f) * glm::scale(0.15f, 0.15f, 0.15f), projection, useMat);
+	monkeysphere->render(view * glm::translate(0.0f, -0.5f, 2.0f) * glm::scale(0.15f, 0.15f, 0.15f), projection, useMat);
+
+	/*
 	cylinder->setOverrideDiffuseMaterial( glm::vec4(1.0, 0.0, 0.0, 1.0));
 	cylinder->setOverrideAmbientMaterial(  glm::vec4(0.0, 0.0, 0.0, 1.0));
 	cylinder->setOverrideSpecularMaterial( glm::vec4(1.0, 1.0, 1.0, 1.0));
 	cylinder->setOverrideSpecularShininessMaterial( 90.0f);
 	cylinder->setOverrideEmissiveMaterial(  glm::vec4(0.0, 0.0, 0.0, 1.0));
-	//cylinder->render(view*glm::translate(0.0f,5.0f,0.0f)*glm::rotate(180.0f,1.0f,0.0f,0.0f), projection, useMat);
-	
+	cylinder->render(view*glm::translate(0.0f,5.0f,0.0f)*glm::rotate(180.0f,1.0f,0.0f,0.0f), projection, useMat);
+	*/
+
 	cylinder2->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 1.0, 1.0));
 	cylinder2->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
 	cylinder2->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	cylinder2->setOverrideSpecularShininessMaterial(90.0f);
 	cylinder2->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
-	cylinder2->render(view * glm::translate(3.0f, 0.0f, 0.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+	for (int i = 3; i < 50; i += 2) {
+		cylinder2->render(view * glm::translate((float)i, 0.0f, 0.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+	}
+	//cylinder2->render(view * glm::translate(3.0f, 0.0f, 0.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
 
 	cylinder3->setOverrideDiffuseMaterial(glm::vec4(1.0, 1.0, 0.0, 1.0));
 	cylinder3->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
 	cylinder3->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	cylinder3->setOverrideSpecularShininessMaterial(90.0f);
 	cylinder3->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
-	cylinder3->render(view * glm::translate(-3.0f, 0.0f, 0.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+
+	for (int i = -3; i > -50; i -= 2) {
+		cylinder3->render(view * glm::translate((float)i, 0.0f, 0.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+	}
+	//cylinder3->render(view * glm::translate(-3.0f, 0.0f, 0.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
 
 	plane->setOverrideDiffuseMaterial( glm::vec4(1.0, 0.0, 0.0, 1.0));
 	plane->setOverrideAmbientMaterial(  glm::vec4(0.2 , 0.0, 0.0, 1.0));
@@ -134,6 +153,7 @@ bool useMat = false;
 	
 	mesh->setOverrideEmissiveMaterial(  glm::vec4(1.0, 1.0, 1.0, 1.0));
 	mesh->render(view * glm::translate(lightPos.x,lightPos.y, lightPos.z)*glm::scale(.1f,.1f,.1f), projection, false);
+
 
 
 	glutSwapBuffers(); // Swap the buffers.
@@ -222,6 +242,7 @@ int main(int argc, char** argv)
 	cylinder2 = new Model(&shader, "models/cylinder.obj", "models/");
 	cylinder3 = new Model(&shader, "models/cylinder.obj", "models/");
 	plane2 = new Model(&shader,"models/texcube.obj",  "models/");
+	monkeysphere = new Model(&shader, "models/monkeysphere.obj", "models/");
 	mesh = sphere;
 	gun = new Model( &shader,"models/m16_1.obj", "models/");
 	glutMainLoop();
