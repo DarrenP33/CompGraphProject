@@ -21,6 +21,8 @@ Model *cube;
 Model *torus;
 Model *sphere;
 Model *cylinder;
+Model *cylinder2;
+Model *cylinder3;
 Model *plane;
 Model *plane2;
 Model *gun;
@@ -108,6 +110,20 @@ bool useMat = false;
 	cylinder->setOverrideSpecularShininessMaterial( 90.0f);
 	cylinder->setOverrideEmissiveMaterial(  glm::vec4(0.0, 0.0, 0.0, 1.0));
 	cylinder->render(view*glm::translate(0.0f,5.0f,0.0f)*glm::rotate(180.0f,1.0f,0.0f,0.0f), projection, useMat);
+
+	cylinder2->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 1.0, 1.0));
+	cylinder2->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	cylinder2->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	cylinder2->setOverrideSpecularShininessMaterial(90.0f);
+	cylinder2->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	cylinder2->render(view * glm::translate(3.0f, 0.0f, 0.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+
+	cylinder3->setOverrideDiffuseMaterial(glm::vec4(1.0, 1.0, 0.0, 1.0));
+	cylinder3->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	cylinder3->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	cylinder3->setOverrideSpecularShininessMaterial(90.0f);
+	cylinder3->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	cylinder3->render(view * glm::translate(-3.0f, 0.0f, 0.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
 	
 	plane->setOverrideDiffuseMaterial( glm::vec4(1.0, 0.0, 0.0, 1.0));
 	plane->setOverrideAmbientMaterial(  glm::vec4(0.2 , 0.0, 0.0, 1.0));
@@ -203,6 +219,8 @@ int main(int argc, char** argv)
 	sphere = new Model(&shader,"models/sphere.obj", "models/");
 	plane = new Model(&shader,"models/plane.obj",  "models/");
 	cylinder = new Model( &shader, "models/cylinder.obj", "models/");
+	cylinder2 = new Model(&shader, "models/cylinder.obj", "models/");
+	cylinder3 = new Model(&shader, "models/cylinder.obj", "models/");
 	plane2 = new Model(&shader,"models/texcube.obj",  "models/");
 	mesh = sphere;
 	gun = new Model( &shader,"models/m16_1.obj", "models/");
