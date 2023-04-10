@@ -139,7 +139,7 @@ void display(void)
 	
 
 	 glm::vec4 lightPos = glm::rotate(0.0f,0.0f, 0.0f, 1.0f) * lightPosition;
-	 lightPositionSpot = glm::vec4(1.0f, -1.0f, -5.5f, 1.0f);
+	 lightPositionSpot = glm::vec4(0.0f, 0.0f, -5.5f, 1.0f);
 	 glm::vec4 lightPosSpot = glm::rotate(0.0f, 0.0f, 0.0f, 1.0f) * lightPositionSpot;
 	
 	shader.Activate(); // Bind shader.
@@ -153,7 +153,7 @@ void display(void)
 	shader.SetUniform("lightSpecularSpot", glm::vec4(1.0, 1.0, 1.0, 1.0));
 	shader.SetUniform("lightAmbientSpot", glm::vec4(1.0, 1.0, 1.0, 1.0));
 	shader.SetUniform("shininessSpot", 50.0f);
-	shader.SetUniform("spotExponent", 1.0f);
+	shader.SetUniform("spotExponent", 100.0f);
 	shader.SetUniform("linearAttenuationCoefficientSpot", .5f);
 
 	if (on)
@@ -166,7 +166,6 @@ void display(void)
 	}
 
 	shader.SetUniform("cutOffAngle", glm::radians(1.0f));
-	shader.SetUniform("d", view * glm::vec4(0.0, 0.0, 1.0, 0.0));
 	shader.SetUniform("d", glm::vec4(0.0, 0.0, -1.0, 0.0));
 
 bool useMat = false;
@@ -217,7 +216,7 @@ bool useMat = false;
 	plane->setOverrideAmbientMaterial(  glm::vec4(0.2 , 0.0, 0.0, 1.0));
 	plane->setOverrideSpecularMaterial( glm::vec4(1.0, 1.0, 1.0, 1.0));
 	plane->setOverrideSpecularShininessMaterial( 90.0f);
-	plane->setOverrideEmissiveMaterial(  glm::vec4(0.0, 0.0, 0.0, 1.0));
+	plane->setOverrideEmissiveMaterial( glm::vec4(0.0, 0.0, 0.0, 1.0));
 	plane->render(view*glm::translate(0.0f,-20.0f,0.0f)*glm::scale(50.0f,1.0f,50.0f), projection, useMat);
 	
 	mesh->setOverrideEmissiveMaterial(  glm::vec4(1.0, 1.0, 1.0, 1.0));
@@ -225,7 +224,7 @@ bool useMat = false;
 
 	//mesh2->render(view * model, projection, true); // Render current active model.
 	mesh2->setOverrideEmissiveMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
-	mesh2->render(glm::translate(lightPosSpot.x, lightPosSpot.y, lightPosSpot.z + 1.0f)* glm::scale(.1f, .1f, .1f), projection, false);
+	mesh2->render(glm::translate(1.0f, -1.0f, -4.5f)* glm::scale(.1f, .1f, .1f), projection, false);
 
 	glutSwapBuffers(); // Swap the buffers.
 
