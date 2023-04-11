@@ -217,7 +217,7 @@ bool useMat = false;
 	plane->setOverrideSpecularMaterial( glm::vec4(1.0, 1.0, 1.0, 1.0));
 	plane->setOverrideSpecularShininessMaterial( 90.0f);
 	plane->setOverrideEmissiveMaterial( glm::vec4(0.0, 0.0, 0.0, 1.0));
-	plane->render(view*glm::translate(0.0f,-20.0f,0.0f)*glm::scale(50.0f,1.0f,50.0f), projection, useMat);
+	plane->render(view*glm::translate(0.0f,-4.0f,0.0f)*glm::scale(50.0f,1.0f,50.0f), projection, useMat);
 	
 	mesh->setOverrideEmissiveMaterial(  glm::vec4(1.0, 1.0, 1.0, 1.0));
 	mesh->render(view * glm::translate(lightPos.x,lightPos.y, lightPos.z)*glm::scale(.1f,.1f,.1f), projection, false);
