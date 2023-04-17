@@ -139,7 +139,7 @@ void display(void)
 	
 
 	 glm::vec4 lightPos = glm::rotate(0.0f,0.0f, 0.0f, 1.0f) * lightPosition;
-	 lightPositionSpot = glm::vec4(0.0f, 0.0f, -5.5f, 1.0f);
+	 lightPositionSpot = glm::vec4(0.0f, 0.0f, 10.5f, 1.0f);
 	 glm::vec4 lightPosSpot = glm::rotate(0.0f, 0.0f, 0.0f, 1.0f) * lightPositionSpot;
 	
 	shader.Activate(); // Bind shader.
@@ -171,8 +171,6 @@ void display(void)
 bool useMat = false;
 	
 	//plane2->render(view * model * glm::rotate(-45.0f,1.0f,0.0f,0.0f),projection, true); // Render current active model.
-	gun->render(glm::translate(1.0f,-1.0f,-2.0f)* glm::scale(.05f,.05f,.05f)*glm::rotate(-90.0f,0.0f,1.0f,0.0f) , projection, true);
-
 	monkeysphere->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 0.0, 1.0));
 	monkeysphere->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
 	monkeysphere->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
@@ -219,12 +217,17 @@ bool useMat = false;
 	plane->setOverrideEmissiveMaterial( glm::vec4(0.0, 0.0, 0.0, 1.0));
 	plane->render(view*glm::translate(0.0f,-4.0f,0.0f)*glm::scale(50.0f,1.0f,50.0f), projection, useMat);
 	
-	mesh->setOverrideEmissiveMaterial(  glm::vec4(1.0, 1.0, 1.0, 1.0));
+	mesh->setOverrideEmissiveMaterial( glm::vec4(1.0, 1.0, 1.0, 1.0));
 	mesh->render(view * glm::translate(lightPos.x,lightPos.y, lightPos.z)*glm::scale(.1f,.1f,.1f), projection, false);
 
 	//mesh2->render(view * model, projection, true); // Render current active model.
-	mesh2->setOverrideEmissiveMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+
+
+	glDisable(GL_DEPTH_TEST);
+	mesh2->setOverrideEmissiveMaterial(glm::vec4(1.0, 0.0, 0.0, 1.0));
 	mesh2->render(glm::translate(1.0f, -1.0f, -4.5f)* glm::scale(.1f, .1f, .1f), projection, false);
+	gun->render(glm::translate(1.0f, -1.0f, -2.0f)* glm::scale(.05f, .05f, .05f)* glm::rotate(-90.0f, 0.0f, 1.0f, 0.0f), projection, true);
+	glEnable(GL_DEPTH_TEST);
 
 	glutSwapBuffers(); // Swap the buffers.
 
