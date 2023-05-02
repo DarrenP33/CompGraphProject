@@ -1,6 +1,6 @@
 #include "QuatCamera.h"
 
-const static float STEP_SCALE = 0.1f;
+const static float STEP_SCALE = 0.5f;
 const static int MARGIN = 10;
 
 QuatCamera::QuatCamera(int WindowWidth, int WindowHeight)
