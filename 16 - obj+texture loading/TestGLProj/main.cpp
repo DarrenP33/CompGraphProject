@@ -46,6 +46,7 @@ Model* lamp3;
 Model* lamp4;
 Model* reticle;
 Model* bullet;
+Model* coin;
 glm::mat4 shootModel;
 glm::mat4 projection;
 glm::mat4 view;
@@ -61,6 +62,13 @@ bool limit_down = false;
 bool on = false;
 bool shoot = false;
 bool start = true;
+bool tflag1 = false;
+bool tflag2 = false;
+bool tflag3 = false;
+bool tflag4 = false;
+bool tflag5 = false;
+bool tflag6 = false;
+bool tflag7 = false;
 glm::vec3 shootDir;
 glm::vec4 lightPosition = glm::vec4(0.0f,7.0f,-10.0f,1.0f);
 glm::vec4 lightPosition2 = glm::vec4(7.0f, 7.7f, 20.0f, 1.0f);
@@ -85,6 +93,7 @@ void initShader(void)
 	shader.InitializeFromFile("shaders/phong3.vert", "shaders/phong3.frag");
 	checkError ("initShader");
 }
+
 
 void initRendering(void)
 {
@@ -214,7 +223,6 @@ bool useMat = false;
 	cylinder->setOverrideEmissiveMaterial(  glm::vec4(0.0, 0.0, 0.0, 1.0));
 	cylinder->render(view*glm::translate(0.0f,5.0f,0.0f)*glm::rotate(180.0f,1.0f,0.0f,0.0f), projection, useMat);
 	*/
-
 	cylinder2->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 1.0, 1.0));
 	cylinder2->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
 	cylinder2->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
@@ -344,50 +352,47 @@ bool useMat = false;
 		if (dist < 1.0) { // collision detection!
 			//shader.SetUniform("surfaceEmissive", glm::vec4(1.0, 0.0, 1.0, 1.0));
 			t1->setOverrideEmissiveMaterial(glm::vec4(1.0, 0.0, 1.0, 1.0));
-
+			tflag1 = true;
 		}
 
 		if (dist2 < 1.0) { // collision detection!
 			//shader.SetUniform("surfaceEmissive", glm::vec4(1.0, 0.0, 1.0, 1.0));
 			t2->setOverrideEmissiveMaterial(glm::vec4(1.0, 0.0, 1.0, 1.0));
-
+			tflag2 = true;
 		}
 
 
 		if (dist3 < 1.0) { // collision detection!
 			//shader.SetUniform("surfaceEmissive", glm::vec4(1.0, 0.0, 1.0, 1.0));
 			t3->setOverrideEmissiveMaterial(glm::vec4(1.0, 0.0, 1.0, 1.0));
-
+			tflag3 = true;;
 		}
 
 		if (dist4 < 1.0) { // collision detection!
 			//shader.SetUniform("surfaceEmissive", glm::vec4(1.0, 0.0, 1.0, 1.0));
 			t4->setOverrideEmissiveMaterial(glm::vec4(1.0, 0.0, 1.0, 1.0));
-
+			tflag4 = true;
 		}
 
 		if (dist5 < 1.0) { // collision detection!
 			//shader.SetUniform("surfaceEmissive", glm::vec4(1.0, 0.0, 1.0, 1.0));
 			t5->setOverrideEmissiveMaterial(glm::vec4(1.0, 0.0, 1.0, 1.0));
-
+			tflag5 = true;
 		}
 
 		if (dist6 < 1.0) { // collision detection!
 			//shader.SetUniform("surfaceEmissive", glm::vec4(1.0, 0.0, 1.0, 1.0));
 			t6->setOverrideEmissiveMaterial(glm::vec4(1.0, 0.0, 1.0, 1.0));
-
+			tflag6 = true;
 		}
 
 		if (dist7 < 1.0) { // collision detection!
 			//shader.SetUniform("surfaceEmissive", glm::vec4(1.0, 0.0, 1.0, 1.0));
 			t7->setOverrideEmissiveMaterial(glm::vec4(1.0, 0.0, 1.0, 1.0));
-
+			tflag7 = true;
 		}
-	
 
-
-
-		bullet->render(view * shootModel * glm::scale(0.15f, 0.15f, 0.15f), projection, false);
+		bullet->render(view * shootModel * glm::scale(0.05f, 0.05f, 0.05f), projection, false);
 
 	}
 	if (start)
@@ -401,6 +406,16 @@ bool useMat = false;
 		t7->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
 		start = false;
 	}
+	if (tflag1 && tflag2 && tflag3 && tflag4 && tflag5 && tflag6 && tflag7)
+	{
+		coin->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+		coin->setOverrideDiffuseMaterial(glm::vec4(1.0, 1.0, 0.0, 1.0));
+		coin->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+		coin->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+		coin->setOverrideSpecularShininessMaterial(90.0f);
+		coin->render(view * glm::translate(0.0f,-3.0f,-15.0f) * glm::scale(9.5f, 9.5f, 9.5f), projection, useMat);
+	}
+
 	t1->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 0.0, 1.0));
 	t1->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
 	t1->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
@@ -569,6 +584,7 @@ int main(int argc, char** argv)
 	plane2 = new Model(&shader,"models/texcube.obj",  "models/");
 	monkeysphere = new Model(&shader, "models/monkeysphere.obj", "models/");
 	reticle = new Model(&shader, "models/torus.obj", "models/");
+	coin = new Model(&shader, "models/torus.obj", "models/");
 	lamp = lamp2 = lamp3 = lamp4 = cylinder;
 	mesh = mesh2 = mesh3 = mesh4 = mesh5 = bullet = sphere;
 	meshspot = monkeysphere;
