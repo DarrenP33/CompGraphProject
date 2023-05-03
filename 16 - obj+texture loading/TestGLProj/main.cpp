@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include <string.h>
 
+using namespace glm;
 Shader shader;
 Model *mesh;
 Model* mesh2;
@@ -32,11 +33,20 @@ Model *plane;
 Model *plane2;
 Model *gun;
 Model* monkeysphere;
+Model* t1;
+Model* t2;
+Model* t3;
+Model* t4;
+Model* t5;
+Model* t6;
+Model* t7;
 Model* lamp;
 Model* lamp2;
 Model* lamp3;
 Model* lamp4;
 Model* reticle;
+Model* bullet;
+glm::mat4 shootModel;
 glm::mat4 projection;
 glm::mat4 view;
 glm::mat4 model;
@@ -49,6 +59,9 @@ float right_left = 0.0f;
 bool limit_up = false;
 bool limit_down = false;
 bool on = false;
+bool shoot = false;
+bool start = true;
+glm::vec3 shootDir;
 glm::vec4 lightPosition = glm::vec4(0.0f,7.0f,-10.0f,1.0f);
 glm::vec4 lightPosition2 = glm::vec4(7.0f, 7.7f, 20.0f, 1.0f);
 glm::vec4 lightPosition3 = glm::vec4(-7.0f, 7.7f, 20.0f, 1.0f);
@@ -191,15 +204,7 @@ void display(void)
 
 bool useMat = false;
 	
-	//plane2->render(view * model * glm::rotate(-45.0f,1.0f,0.0f,0.0f),projection, true); // Render current active model.
-	monkeysphere->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 0.0, 1.0));
-	monkeysphere->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
-	monkeysphere->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
-	monkeysphere->setOverrideSpecularShininessMaterial(90.0f);
-	monkeysphere->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
-	monkeysphere->render(view * glm::translate(2.0f, up_down, 20.0f) * glm::scale(0.5f, 0.5f, 0.5f), projection, useMat);
-	monkeysphere->render(view * glm::translate(-2.0f, up_down, 20.0f) * glm::scale(0.5f, 0.5f, 0.5f), projection, useMat);
-	monkeysphere->render(view * glm::translate(0.0f,down_up, 20.0f) * glm::scale(0.5f, 0.5f, 0.5f), projection, useMat);
+	//plane2->render(view * model * glm::rotate(-45.0f,1.0f,0.0f,0.0f),projection, true); // Render current active model
 
 	/*
 	cylinder->setOverrideDiffuseMaterial( glm::vec4(1.0, 0.0, 0.0, 1.0));
@@ -311,6 +316,134 @@ bool useMat = false;
 
 	//mesh2->render(view * model, projection, true); // Render current active model.
 
+	if (shoot) {
+		shootDir += vec3(0.0, 0.0, 0.0);
+		float scale = .5;
+		shootModel *= translate(shootDir * scale);
+		//shader.SetUniform("surfaceDiffuse", glm::vec4(1.0, 0.0, 1.0, 1.0));
+		bullet->setOverrideDiffuseMaterial(glm::vec4(0.0, 0.0, 1.0, 1.0));
+		//shader.SetUniform("surfaceAmbient", glm::vec4(0.0, 0.0, 1.0, 1.0));
+		bullet->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 1.0, 1.0));
+
+		vec4 bulletPos = shootModel[3];
+		vec4 targetPos = glm::vec4(2.0f, up_down, 20.0f, 1.0f);
+		vec4 targetPos2 = glm::vec4(-2.0f, up_down, 20.0f,1.0f);
+		vec4 targetPos3 = glm::vec4(0.0f, down_up, 20.0f, 1.0f);
+		vec4 targetPos4 = glm::vec4(14.0f, 1.0f, 15.0f, 1.0f);
+		vec4 targetPos5 = glm::vec4(-14.0f, -3.0f, 15.0f, 1.0f);
+		vec4 targetPos6 = glm::vec4(-2.0f, 1.0f, -45.0f, 1.0f);
+		vec4 targetPos7 = glm::vec4(2.0f, -3.0f, -45.0f, 1.0f);
+		float dist = glm::length(bulletPos - targetPos);
+		float dist2 = glm::length(bulletPos - targetPos2);
+		float dist3 = glm::length(bulletPos - targetPos3);
+		float dist4 = glm::length(bulletPos - targetPos4);
+		float dist5 = glm::length(bulletPos - targetPos5);
+		float dist6 = glm::length(bulletPos - targetPos6);
+		float dist7 = glm::length(bulletPos - targetPos7);
+		//printf("%f| %f, %f, %f \n", dist, bulletPos.x, bulletPos.y, bulletPos.z );
+		if (dist < 1.0) { // collision detection!
+			//shader.SetUniform("surfaceEmissive", glm::vec4(1.0, 0.0, 1.0, 1.0));
+			t1->setOverrideEmissiveMaterial(glm::vec4(1.0, 0.0, 1.0, 1.0));
+
+		}
+
+		if (dist2 < 1.0) { // collision detection!
+			//shader.SetUniform("surfaceEmissive", glm::vec4(1.0, 0.0, 1.0, 1.0));
+			t2->setOverrideEmissiveMaterial(glm::vec4(1.0, 0.0, 1.0, 1.0));
+
+		}
+
+
+		if (dist3 < 1.0) { // collision detection!
+			//shader.SetUniform("surfaceEmissive", glm::vec4(1.0, 0.0, 1.0, 1.0));
+			t3->setOverrideEmissiveMaterial(glm::vec4(1.0, 0.0, 1.0, 1.0));
+
+		}
+
+		if (dist4 < 1.0) { // collision detection!
+			//shader.SetUniform("surfaceEmissive", glm::vec4(1.0, 0.0, 1.0, 1.0));
+			t4->setOverrideEmissiveMaterial(glm::vec4(1.0, 0.0, 1.0, 1.0));
+
+		}
+
+		if (dist5 < 1.0) { // collision detection!
+			//shader.SetUniform("surfaceEmissive", glm::vec4(1.0, 0.0, 1.0, 1.0));
+			t5->setOverrideEmissiveMaterial(glm::vec4(1.0, 0.0, 1.0, 1.0));
+
+		}
+
+		if (dist6 < 1.0) { // collision detection!
+			//shader.SetUniform("surfaceEmissive", glm::vec4(1.0, 0.0, 1.0, 1.0));
+			t6->setOverrideEmissiveMaterial(glm::vec4(1.0, 0.0, 1.0, 1.0));
+
+		}
+
+		if (dist7 < 1.0) { // collision detection!
+			//shader.SetUniform("surfaceEmissive", glm::vec4(1.0, 0.0, 1.0, 1.0));
+			t7->setOverrideEmissiveMaterial(glm::vec4(1.0, 0.0, 1.0, 1.0));
+
+		}
+	
+
+
+
+		bullet->render(view * shootModel * glm::scale(0.15f, 0.15f, 0.15f), projection, false);
+
+	}
+	if (start)
+	{
+		t1->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+		t2->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+		t3->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+		t4->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+		t5->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+		t6->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+		t7->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+		start = false;
+	}
+	t1->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 0.0, 1.0));
+	t1->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	t1->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	t1->setOverrideSpecularShininessMaterial(90.0f);
+	t1->render(view * glm::translate(2.0f, up_down, 20.0f) * glm::rotate(-180.0f, 0.0f, 1.0f, 0.0f) * glm::scale(0.5f, 0.5f, 0.5f), projection, useMat);
+
+	t2->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 0.0, 1.0));
+	t2->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	t2->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	t2->setOverrideSpecularShininessMaterial(90.0f);
+	t2->render(view * glm::translate(-2.0f, up_down, 20.0f) * glm::rotate(-180.0f, 0.0f, 1.0f, 0.0f) * glm::scale(0.5f, 0.5f, 0.5f), projection, useMat);
+
+	t3->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 0.0, 1.0));
+	t3->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	t3->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	t3->setOverrideSpecularShininessMaterial(90.0f);
+	t3->render(view * glm::translate(0.0f, down_up, 20.0f) * glm::rotate(-180.0f, 0.0f, 1.0f, 0.0f) * glm::scale(0.5f, 0.5f, 0.5f), projection, useMat);
+
+	t4->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 0.0, 1.0));
+	t4->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	t4->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	t4->setOverrideSpecularShininessMaterial(90.0f);
+	t4->render(view * glm::translate(14.0f, 1.0f, 15.0f) * glm::rotate(-180.0f, 0.0f, 1.0f, 0.0f) * glm::scale(0.5f, 0.5f, 0.5f), projection, useMat);
+
+	t5->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 0.0, 1.0));
+	t5->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	t5->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	t5->setOverrideSpecularShininessMaterial(90.0f);
+	t5->render(view * glm::translate(-14.0f, -3.0f, 15.0f) * glm::rotate(-180.0f, 0.0f, 1.0f, 0.0f) * glm::scale(0.5f, 0.5f, 0.5f), projection, useMat);
+
+	t6->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 0.0, 1.0));
+	t6->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	t6->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	t6->setOverrideSpecularShininessMaterial(90.0f);
+	t6->render(view * glm::translate(-2.0f, 1.0f, -45.0f) * glm::scale(0.5f, 0.5f, 0.5f), projection, useMat);
+
+	t7->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 0.0, 1.0));
+	t7->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	t7->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	t7->setOverrideSpecularShininessMaterial(90.0f);
+	t7->render(view * glm::translate(2.0f, -3.0f, -45.0f) * glm::scale(0.5f, 0.5f, 0.5f), projection, useMat);
+
+	// Render current active model.
 
 	glDisable(GL_DEPTH_TEST);
 	meshspot->setOverrideEmissiveMaterial(glm::vec4(1.0, 0.0, 0.0, 1.0));
@@ -377,6 +510,28 @@ if(useMouseCamera)
   camera->OnMouse(x, y);
 }
 
+void shootSphere(int x, int y) {
+	GLint viewport[] = { 0,0,0,0 };
+	glGetIntegerv(GL_VIEWPORT, viewport);
+	vec3 pointOnNear = glm::unProject(vec3(x, viewport[3] - y, 0.0), view, projection, vec4(viewport[0], viewport[1], viewport[2], viewport[3]));
+	vec3 pointOnFar = glm::unProject(vec3(x, viewport[3] - y, 1.0), view, projection, vec4(viewport[0], viewport[1], viewport[2], viewport[3]));
+	shootDir = normalize(pointOnFar - pointOnNear);
+	shootModel = translate(pointOnNear);
+	shoot = true;
+
+
+}
+void MouseButton(int button, int state, int x, int y)
+{
+	// Respond to mouse button presses.
+	// If button1 pressed, mark this state so we know in motion function.
+
+	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
+	{
+		shootSphere(x, y);
+	}
+}
+
 int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
@@ -399,6 +554,7 @@ int main(int argc, char** argv)
 	glutKeyboardFunc (keyboard);
 	glutSpecialFunc(specialKeyboard);
     glutPassiveMotionFunc(passiveMouse);
+	glutMouseFunc(MouseButton);
 	glutSetCursor(GLUT_CURSOR_NONE);
 
 	glEnable(GL_DEPTH_TEST);
@@ -414,9 +570,15 @@ int main(int argc, char** argv)
 	monkeysphere = new Model(&shader, "models/monkeysphere.obj", "models/");
 	reticle = new Model(&shader, "models/torus.obj", "models/");
 	lamp = lamp2 = lamp3 = lamp4 = cylinder;
-	mesh = mesh2 = mesh3 = mesh4 = mesh5 = sphere;
+	mesh = mesh2 = mesh3 = mesh4 = mesh5 = bullet = sphere;
 	meshspot = monkeysphere;
-
+	t1 = new Model(&shader, "models/monkeysphere.obj", "models/");
+	t2 = new Model(&shader, "models/monkeysphere.obj", "models/");
+	t3 = new Model(&shader, "models/monkeysphere.obj", "models/");
+	t4 = new Model(&shader, "models/monkeysphere.obj", "models/");
+	t5 = new Model(&shader, "models/monkeysphere.obj", "models/");
+	t6 = new Model(&shader, "models/monkeysphere.obj", "models/");
+	t7 = new Model(&shader, "models/monkeysphere.obj", "models/");
 	gun = new Model( &shader,"models/m16_1.obj", "models/");
 
 	glutMainLoop();
