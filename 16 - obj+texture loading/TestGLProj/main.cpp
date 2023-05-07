@@ -71,10 +71,10 @@ bool tflag6 = false;
 bool tflag7 = false;
 glm::vec3 shootDir;
 glm::vec4 lightPosition = glm::vec4(0.0f,7.0f,-10.0f,1.0f);
-glm::vec4 lightPosition2 = glm::vec4(7.0f, 7.7f, 20.0f, 1.0f);
-glm::vec4 lightPosition3 = glm::vec4(-7.0f, 7.7f, 20.0f, 1.0f);
-glm::vec4 lightPosition4 = glm::vec4(-22.0f, 7.7f, -50.0f, 1.0f);
-glm::vec4 lightPosition5 = glm::vec4(22.0f, 7.7f, -50.0f, 1.0f);
+glm::vec4 lightPosition2 = glm::vec4(7.0f, 5.7f, 20.0f, 1.0f);
+glm::vec4 lightPosition3 = glm::vec4(-7.0f, 5.7f, 20.0f, 1.0f);
+glm::vec4 lightPosition4 = glm::vec4(-22.0f, 5.7f, -50.0f, 1.0f);
+glm::vec4 lightPosition5 = glm::vec4(22.0f, 5.7f, -50.0f, 1.0f);
 glm::vec4 lightPositionSpot = glm::vec4(0.0f, 0.0f, -4.0f, 1.0f);
 
 QuatCamera * camera;
@@ -223,58 +223,58 @@ bool useMat = false;
 	cylinder->setOverrideEmissiveMaterial(  glm::vec4(0.0, 0.0, 0.0, 1.0));
 	cylinder->render(view*glm::translate(0.0f,5.0f,0.0f)*glm::rotate(180.0f,1.0f,0.0f,0.0f), projection, useMat);
 	*/
-	cylinder2->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 1.0, 1.0));
+	cylinder2->setOverrideDiffuseMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	cylinder2->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
 	cylinder2->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	cylinder2->setOverrideSpecularShininessMaterial(90.0f);
 	cylinder2->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
 	for (int i = 7; i < 22; i += 5) {
-		cylinder2->render(view * glm::translate((float)i, -3.0f, 20.0f) * glm::scale(3.0f, 5.0f, 3.0f)*glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+		cylinder2->render(view * glm::translate((float)i, 3.0f, 20.0f) * glm::scale(5.9f, 5.0f, 5.7f) *glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
 	}
 	for (int i = -20; i < 0; i += 5) {
-		cylinder2->render(view * glm::translate(7.0f, -3.0f, -(float)i) * glm::scale(3.0f, 5.0f, 3.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+		cylinder2->render(view * glm::translate(7.0f, 3.0f, -(float)i) * glm::scale(5.9f, 5.0f, 5.7f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
 	}
 	//cylinder2->render(view * glm::translate(3.0f, 0.0f, 0.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
 	for (int i = -20; i < 50; i += 5) {
-		cylinder2->render(view * glm::translate(22.0f, -3.0f, -(float)i) * glm::scale(3.0f, 5.0f, 3.0f)* glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+		cylinder2->render(view * glm::translate(22.0f, 3.0f, -(float)i) * glm::scale(5.9f, 5.0f, 5.7f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
 	}
 	for (int i = 22; i > 0; i -= 5) {
-		cylinder2->render(view * glm::translate((float)i, -3.0f, -50.0f) * glm::scale(3.0f, 5.0f, 3.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+		cylinder2->render(view * glm::translate((float)i, 3.0f, -50.0f) * glm::scale(5.9f, 5.0f, 5.7f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
 	}
 
-	cylinder2->render(view* glm::translate(3.0f, -3.0f, 4.0f)* glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
-	cylinder2->render(view * glm::translate(1.0f, -3.0f, 4.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+	cylinder2->render(view* glm::translate(3.44f, -1.5f, 4.0f) * glm::scale(2.6f, 2.0f, 2.8f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+	cylinder2->render(view * glm::translate(1.17f, -1.5f, 4.0f) * glm::scale(2.6f, 2.0f, 2.8f) *glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
 
-	cylinder3->setOverrideDiffuseMaterial(glm::vec4(1.0, 1.0, 0.0, 1.0));
+	cylinder3->setOverrideDiffuseMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	cylinder3->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
 	cylinder3->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	cylinder3->setOverrideSpecularShininessMaterial(90.0f);
 	cylinder3->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
 
 	for (int i = -7; i > -22; i -= 5) {
-		cylinder3->render(view * glm::translate((float)i, -3.0f, 20.0f) * glm::scale(3.0f, 5.0f, 3.0f)* glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+		cylinder3->render(view * glm::translate((float)i, 3.0f, 20.0f) * glm::scale(5.9f, 5.0f, 5.7f)* glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
 	}
 	for (int i = -20; i < 0; i += 5) {
-		cylinder3->render(view * glm::translate(-7.0f, -3.0f, -(float)i) * glm::scale(3.0f, 5.0f, 3.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+		cylinder3->render(view * glm::translate(-7.0f, 3.0f, -(float)i) * glm::scale(5.9f, 5.0f, 5.7f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
 	}
 	for (int i = -20; i < 50; i += 5) {
-		cylinder3->render(view * glm::translate(-22.0f, -3.0f, -(float)i) * glm::scale(3.0f, 5.0f, 3.0f)* glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+		cylinder3->render(view * glm::translate(-22.0f, 3.0f, -(float)i) * glm::scale(5.9f, 5.0f, 5.7f)* glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
 	}
 	for (int i = -22; i < 0; i += 5) {
-		cylinder3->render(view * glm::translate((float)i, -3.0f, -50.0f) * glm::scale(3.0f, 5.0f, 3.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+		cylinder3->render(view * glm::translate((float)i, 3.0f, -50.0f) * glm::scale(5.9f, 5.0f, 5.8f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
 	}
 	//cylinder3->render(view * glm::translate(-3.0f, 0.0f, 0.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
 
-	cylinder3->render(view * glm::translate(-3.0f, -3.0f, 4.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
-	cylinder3->render(view * glm::translate(-1.0f, -3.0f, 4.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+	cylinder3->render(view * glm::translate(-3.4f, -1.5f, 4.0f) * glm::scale(2.6f, 2.0f, 2.8f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+	cylinder3->render(view * glm::translate(-1.1f, -1.5f, 4.0f) * glm::scale(2.6f, 2.0f, 2.8f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
 
-	lamp->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 1.0, 1.0));
-	lamp->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	lamp->setOverrideDiffuseMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	lamp->setOverrideAmbientMaterial(glm::vec4(.01, 0.01, 0.01, 1.0));
 	lamp->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	lamp->setOverrideSpecularShininessMaterial(90.0f);
 	lamp->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
 
-	lamp->render(view * glm::translate(7.0f, 4.5f, 20.0f) * glm::scale(1.0f, 2.5f, 1.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+	lamp->render(view * glm::translate(7.0f, 4.8f, 20.0f) * glm::scale(10.0f, 10.f, 10.0f) * glm::rotate(0.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
 
 	lamp2->setOverrideDiffuseMaterial(glm::vec4(1.0, 1.0, 0.0, 1.0));
 	lamp2->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
@@ -282,7 +282,7 @@ bool useMat = false;
 	lamp2->setOverrideSpecularShininessMaterial(90.0f);
 	lamp2->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
 
-	lamp2->render(view * glm::translate(-7.0f, 4.5f, 20.0f) * glm::scale(1.0f, 2.5f, 1.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+	lamp2->render(view * glm::translate(-7.0f, 4.8f, 20.0f) * glm::scale(10.0f, 10.f, 10.0f) * glm::rotate(0.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
 
 	lamp3->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 1.0, 1.0));
 	lamp3->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
@@ -290,7 +290,7 @@ bool useMat = false;
 	lamp3->setOverrideSpecularShininessMaterial(90.0f);
 	lamp3->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
 
-	lamp3->render(view * glm::translate(22.0f, 4.5f, -50.0f) * glm::scale(1.0f, 2.5f, 1.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+	lamp3->render(view * glm::translate(22.0f, 4.8f, -50.0f) * glm::scale(10.0f, 10.f, 10.0f) * glm::rotate(0.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
 
 	lamp4->setOverrideDiffuseMaterial(glm::vec4(1.0, 1.0, 0.0, 1.0));
 	lamp4->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
@@ -298,17 +298,17 @@ bool useMat = false;
 	lamp4->setOverrideSpecularShininessMaterial(90.0f);
 	lamp4->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
 
-	lamp4->render(view * glm::translate(-22.0f, 4.5f, -50.0f) * glm::scale(1.0f, 2.5f, 1.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+	lamp4->render(view * glm::translate(-22.0f, 4.8f, -50.0f) * glm::scale(10.0f, 10.f, 10.0f) * glm::rotate(0.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
 
-	plane->setOverrideDiffuseMaterial( glm::vec4(1.0, 0.0, 0.0, 1.0));
-	plane->setOverrideAmbientMaterial(  glm::vec4(0.2 , 0.0, 0.0, 1.0));
+	plane->setOverrideDiffuseMaterial( glm::vec4(1., 1.0, 1.0, 1.0));
+	plane->setOverrideAmbientMaterial(  glm::vec4(0.0 , 0.0, 0.0, 1.0));
 	plane->setOverrideSpecularMaterial( glm::vec4(1.0, 1.0, 1.0, 1.0));
 	plane->setOverrideSpecularShininessMaterial( 90.0f);
 	plane->setOverrideEmissiveMaterial( glm::vec4(0.0, 0.0, 0.0, 1.0));
-	plane->render(view*glm::translate(0.0f,-4.0f,0.0f)*glm::scale(50.0f,1.0f,50.0f), projection, useMat);
+	plane->render(view*glm::translate(-20.0f,-5.0f,-40.0f)*glm::scale(30.0f,1.0f,40.0f), projection, useMat);
 	
 	mesh->setOverrideEmissiveMaterial( glm::vec4(1.0, 1.0, 1.0, 1.0));
-	mesh->render(view * glm::translate(lightPos.x,lightPos.y, lightPos.z)*glm::scale(.1f,.1f,.1f), projection, false);
+	//mesh->render(view * glm::translate(lightPos.x,lightPos.y, lightPos.z)*glm::scale(.1f,.1f,.1f), projection, false);
 
 	mesh2->setOverrideEmissiveMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	mesh2->render(view * glm::translate(lightPos2.x, lightPos2.y, lightPos2.z) , projection, false);
@@ -334,13 +334,13 @@ bool useMat = false;
 		bullet->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 1.0, 1.0));
 
 		vec4 bulletPos = shootModel[3];
-		vec4 targetPos = glm::vec4(2.0f, up_down, 20.0f, 1.0f);
-		vec4 targetPos2 = glm::vec4(-2.0f, up_down, 20.0f,1.0f);
-		vec4 targetPos3 = glm::vec4(0.0f, down_up, 20.0f, 1.0f);
+		vec4 targetPos = glm::vec4(2.8f, up_down, 18.0f, 1.0f);
+		vec4 targetPos2 = glm::vec4(-3.f, up_down, 20.0f,1.0f);
+		vec4 targetPos3 = glm::vec4(-0.1f, down_up, 23.0f, 1.0f);
 		vec4 targetPos4 = glm::vec4(14.0f, 1.0f, 15.0f, 1.0f);
-		vec4 targetPos5 = glm::vec4(-14.0f, -3.0f, 15.0f, 1.0f);
+		vec4 targetPos5 = glm::vec4(-14.0f, -2.0f, 15.0f, 1.0f);
 		vec4 targetPos6 = glm::vec4(-2.0f, 1.0f, -45.0f, 1.0f);
-		vec4 targetPos7 = glm::vec4(2.0f, -3.0f, -45.0f, 1.0f);
+		vec4 targetPos7 = glm::vec4(2.0f, -2.5f, -45.0f, 1.0f);
 		float dist = glm::length(bulletPos - targetPos);
 		float dist2 = glm::length(bulletPos - targetPos2);
 		float dist3 = glm::length(bulletPos - targetPos3);
@@ -406,57 +406,60 @@ bool useMat = false;
 		t7->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
 		start = false;
 	}
-	if (tflag1 && tflag2 && tflag3 && tflag4 && tflag5 && tflag6 && tflag7)
+		if (tflag1 && tflag2 && tflag3 && tflag4 && tflag5 && tflag6 && tflag7)
+		//if (true)
 	{
 		coin->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
 		coin->setOverrideDiffuseMaterial(glm::vec4(1.0, 1.0, 0.0, 1.0));
 		coin->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
 		coin->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
 		coin->setOverrideSpecularShininessMaterial(90.0f);
-		coin->render(view * glm::translate(0.0f,-3.0f,-15.0f) * glm::scale(9.5f, 9.5f, 9.5f), projection, useMat);
+		coin->render(view * glm::translate(18.0f,10.0f, 25.0f)  * glm::rotate(90.0f, 1.0f, .0f, 0.0f) * glm::rotate(180.0f, .0f, .0f, 1.0f) * glm::scale(9.5f, 9.5f, 9.5f), projection, useMat);
 	}
 
-	t1->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 0.0, 1.0));
+
+
+	t1->setOverrideDiffuseMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	t1->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
 	t1->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	t1->setOverrideSpecularShininessMaterial(90.0f);
-	t1->render(view * glm::translate(2.0f, up_down, 20.0f) * glm::rotate(-180.0f, 0.0f, 1.0f, 0.0f) * glm::scale(0.5f, 0.5f, 0.5f), projection, useMat);
+	t1->render(view * glm::translate(2.8f, up_down, 18.0f) * glm::rotate(90.0f, 1.0f,.0f, 0.0f) * glm::rotate(180.0f, .0f, .0f, 1.0f) * glm::scale(0.3f, 0.3f, 0.3f), projection, useMat);
 
-	t2->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 0.0, 1.0));
+	t2->setOverrideDiffuseMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	t2->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
 	t2->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	t2->setOverrideSpecularShininessMaterial(90.0f);
-	t2->render(view * glm::translate(-2.0f, up_down, 20.0f) * glm::rotate(-180.0f, 0.0f, 1.0f, 0.0f) * glm::scale(0.5f, 0.5f, 0.5f), projection, useMat);
+	t2->render(view * glm::translate(-3.f, up_down, 20.0f)* glm::rotate(90.0f, 1.0f, .0f, 0.0f)* glm::rotate(180.0f, .0f, .0f, 1.0f)* glm::scale(0.3f, 0.3f, 0.3f), projection, useMat);
 
-	t3->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 0.0, 1.0));
+	t3->setOverrideDiffuseMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	t3->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
 	t3->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	t3->setOverrideSpecularShininessMaterial(90.0f);
-	t3->render(view * glm::translate(0.0f, down_up, 20.0f) * glm::rotate(-180.0f, 0.0f, 1.0f, 0.0f) * glm::scale(0.5f, 0.5f, 0.5f), projection, useMat);
+	t3->render(view * glm::translate(-0.1f, down_up, 23.0f)* glm::rotate(90.0f, 1.0f, .0f, 0.0f)* glm::rotate(180.0f, .0f, .0f, 1.0f)* glm::scale(0.3f, 0.3f, 0.3f), projection, useMat);
 
-	t4->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 0.0, 1.0));
+	t4->setOverrideDiffuseMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	t4->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
 	t4->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	t4->setOverrideSpecularShininessMaterial(90.0f);
-	t4->render(view * glm::translate(14.0f, 1.0f, 15.0f) * glm::rotate(-180.0f, 0.0f, 1.0f, 0.0f) * glm::scale(0.5f, 0.5f, 0.5f), projection, useMat);
+	t4->render(view * glm::translate(14.0f, 1.0f, 15.0f)* glm::rotate(90.0f, 1.0f, .0f, 0.0f)* glm::rotate(180.0f, .0f, .0f, 1.0f)* glm::scale(0.3f, 0.3f, 0.3f), projection, useMat);
 
-	t5->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 0.0, 1.0));
+	t5->setOverrideDiffuseMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	t5->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
 	t5->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	t5->setOverrideSpecularShininessMaterial(90.0f);
-	t5->render(view * glm::translate(-14.0f, -3.0f, 15.0f) * glm::rotate(-180.0f, 0.0f, 1.0f, 0.0f) * glm::scale(0.5f, 0.5f, 0.5f), projection, useMat);
+	t5->render(view * glm::translate(-14.0f, -2.0f, 15.0f)* glm::rotate(90.0f, 1.0f, .0f, 0.0f)* glm::rotate(180.0f, .0f, .0f, 1.0f)* glm::scale(0.3f, 0.3f, 0.3f), projection, useMat);
 
-	t6->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 0.0, 1.0));
-	t6->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	t6->setOverrideDiffuseMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	t6->setOverrideAmbientMaterial(glm::vec4(0.01, 0.01, 0.01, 1.0));
 	t6->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	t6->setOverrideSpecularShininessMaterial(90.0f);
-	t6->render(view * glm::translate(-2.0f, 1.0f, -45.0f) * glm::scale(0.5f, 0.5f, 0.5f), projection, useMat);
+	t6->render(view * glm::translate(-2.0f, 1.0f, -45.0f) * glm::rotate(90.0f, 1.0f, .0f, 0.0f) * glm::scale(0.3f, 0.3f, 0.3f), projection, useMat);
 
-	t7->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 0.0, 1.0));
-	t7->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	t7->setOverrideDiffuseMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	t7->setOverrideAmbientMaterial(glm::vec4(0.01, 0.01, 0.01, 1.0));
 	t7->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	t7->setOverrideSpecularShininessMaterial(90.0f);
-	t7->render(view * glm::translate(2.0f, -3.0f, -45.0f) * glm::scale(0.5f, 0.5f, 0.5f), projection, useMat);
+	t7->render(view * glm::translate(2.0f, -2.5f, -45.0f) * glm::rotate(90.0f, 1.0f, .0f, 0.0f) * glm::scale(0.3f, 0.3f, 0.3f), projection, useMat);
 
 	// Render current active model.
 
@@ -484,6 +487,7 @@ void reshape (int w, int h)
 	glViewport (0, 0, (GLsizei) w, (GLsizei) h);
 	checkError ("reshape");
 }
+
 bool useMouseCamera = false;
 void specialKeyboard(int Key, int x, int y)
 {
@@ -577,24 +581,24 @@ int main(int argc, char** argv)
 	torus = new Model(&shader,"models/torus.obj",  "models/");
 	cube = new Model(&shader,"models/cube.obj",  "models/");
 	sphere = new Model(&shader,"models/sphere.obj", "models/");
-	plane = new Model(&shader,"models/plane.obj",  "models/");
-	cylinder = new Model( &shader, "models/cylinder.obj", "models/");
-	cylinder2 = new Model(&shader, "models/cylinder.obj", "models/");
-	cylinder3 = new Model(&shader, "models/cylinder.obj", "models/");
+	plane = new Model(&shader,"models/texcube.obj",  "models/");
+	cylinder = new Model( &shader, "models/lamp4.obj", "models/");
+	cylinder2 = new Model(&shader, "models/barrelNew.obj", "models/");
+	cylinder3 = new Model(&shader, "models/BarrelNewOBJ.obj", "models/");
 	plane2 = new Model(&shader,"models/texcube.obj",  "models/");
 	monkeysphere = new Model(&shader, "models/monkeysphere.obj", "models/");
 	reticle = new Model(&shader, "models/torus.obj", "models/");
-	coin = new Model(&shader, "models/torus.obj", "models/");
+	coin = new Model(&shader, "models/Winner.obj", "models/");
 	lamp = lamp2 = lamp3 = lamp4 = cylinder;
 	mesh = mesh2 = mesh3 = mesh4 = mesh5 = bullet = sphere;
 	meshspot = monkeysphere;
-	t1 = new Model(&shader, "models/monkeysphere.obj", "models/");
-	t2 = new Model(&shader, "models/monkeysphere.obj", "models/");
-	t3 = new Model(&shader, "models/monkeysphere.obj", "models/");
-	t4 = new Model(&shader, "models/monkeysphere.obj", "models/");
-	t5 = new Model(&shader, "models/monkeysphere.obj", "models/");
-	t6 = new Model(&shader, "models/monkeysphere.obj", "models/");
-	t7 = new Model(&shader, "models/monkeysphere.obj", "models/");
+	t1 = new Model(&shader, "models/target.obj", "models/");
+	t2 = new Model(&shader, "models/target.obj", "models/");
+	t3 = new Model(&shader, "models/target.obj", "models/");
+	t4 = new Model(&shader, "models/target.obj", "models/");
+	t5 = new Model(&shader, "models/target.obj", "models/");
+	t6 = new Model(&shader, "models/target.obj", "models/");
+	t7 = new Model(&shader, "models/target.obj", "models/");
 	gun = new Model( &shader,"models/m16_1.obj", "models/");
 
 	glutMainLoop();
