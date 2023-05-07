@@ -1,6 +1,5 @@
 #pragma once
 #include "camera.h"
-
 class QuatCamera	
 {
 public:
@@ -8,9 +7,14 @@ public:
 
 	QuatCamera(int WindowWidth, int WindowHeight, const glm::vec3& Pos, const glm::vec3& Target, const glm::vec3& Up);
 	
-	 bool OnKeyboard(int Key);// call this when an arrow key is hit
+	 bool OnKeyboard(int Key);
+
+	 glm::vec3 returnFuture(unsigned char Key);
+
+	 // call this when an arrow key is hit
 
 	 bool OnKeyboardchar(unsigned char);
+
 
 	 void OnMouse(int x, int y); // call this when mouse moves
 

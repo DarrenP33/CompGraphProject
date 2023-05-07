@@ -32,8 +32,34 @@ glm::mat4 model;
 bool drawTorus = true;
 bool spin = false;
 float rotation = 0.0f;
+<<<<<<< Updated upstream
 glm::vec4 lightPosition = glm::vec4(0.0f,3.0f,0.0f,1.0f);
 
+=======
+float up_down = 1.0f;
+float down_up = 0.5f;
+float right_left = 0.0f;
+bool limit_up = false;
+bool limit_down = false;
+bool on = false;
+bool shoot = false;
+bool start = true;
+bool tflag1 = false;
+bool tflag2 = false;
+bool tflag3 = false;
+bool tflag4 = false;
+bool tflag5 = false;
+bool tflag6 = false;
+bool tflag7 = false;
+glm::vec3 shootDir;
+glm::vec4 lightPosition = glm::vec4(0.0f,7.0f,-10.0f,1.0f);
+glm::vec4 lightPosition2 = glm::vec4(7.0f, 7.7f, 20.0f, 1.0f);
+glm::vec4 lightPosition3 = glm::vec4(-7.0f, 7.7f, 20.0f, 1.0f);
+glm::vec4 lightPosition4 = glm::vec4(-22.0f, 7.7f, -50.0f, 1.0f);
+glm::vec4 lightPosition5 = glm::vec4(22.0f, 7.7f, -50.0f, 1.0f);
+glm::vec4 lightPositionSpot = glm::vec4(0.0f, 0.0f, -4.0f, 1.0f);
+std::vector<glm::vec3> cylinderPositions;
+>>>>>>> Stashed changes
 QuatCamera * camera;
 
 /* report GL errors, if any, to stderr */
@@ -100,6 +126,7 @@ void display(void)
 	shader.SetUniform("lightAmbient", glm::vec4(1.0, 1.0, 1.0, 1.0));
 	shader.SetUniform("linearAttenuationCoefficient", .3f);
 bool useMat = false;
+<<<<<<< Updated upstream
 	
 	plane2->render(view * model * glm::rotate(-45.0f,1.0f,0.0f,0.0f),projection, true); // Render current active model.
 	gun->render(glm::translate(1.0f,-1.0f,-2.0f)* glm::scale(.05f,.05f,.05f)*glm::rotate(-90.0f,0.0f,1.0f,0.0f) , projection, true);
@@ -110,21 +137,119 @@ bool useMat = false;
 	cylinder->setOverrideSpecularShininessMaterial( 90.0f);
 	cylinder->setOverrideEmissiveMaterial(  glm::vec4(0.0, 0.0, 0.0, 1.0));
 	cylinder->render(view*glm::translate(0.0f,5.0f,0.0f)*glm::rotate(180.0f,1.0f,0.0f,0.0f), projection, useMat);
+=======
+>>>>>>> Stashed changes
 
 	cylinder2->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 1.0, 1.0));
 	cylinder2->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
 	cylinder2->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	cylinder2->setOverrideSpecularShininessMaterial(90.0f);
 	cylinder2->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+<<<<<<< Updated upstream
 	cylinder2->render(view * glm::translate(3.0f, 0.0f, 0.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+=======
+
+	for (int i = 7; i < 22; i += 5) {
+		cylinder2->render(view * glm::translate((float)i, -3.0f, 20.0f) * glm::scale(3.0f, 5.0f, 3.0f)*glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+		cylinderPositions.push_back(glm::vec3((float)i, -3.0f, 20.0f));
+	}
+	for (int i = -20; i < 0; i += 5) {
+		
+		cylinder2->render(view * glm::translate(7.0f, -3.0f, -(float)i) * glm::scale(3.0f, 5.0f, 3.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+		cylinderPositions.push_back(glm::vec3(7.0f, -3.0f, -(float)i));
+	}
+
+	//cylinder2->render(view * glm::translate(3.0f, 0.0f, 0.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+
+	for (int i = -20; i < 50; i += 5) {
+		
+		cylinder2->render(view * glm::translate(22.0f, -3.0f, -(float)i) * glm::scale(3.0f, 5.0f, 3.0f)* glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+		cylinderPositions.push_back(glm::vec3(22.0f, -3.0f, -(float)i));
+	}
+	for (int i = 22; i > 0; i -= 5) {
+		
+		cylinder2->render(view * glm::translate((float)i, -3.0f, -50.0f) * glm::scale(3.0f, 5.0f, 3.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+		cylinderPositions.push_back(glm::vec3((float)i, -3.0f, -50.0f));
+	}
+
+	cylinder2->render(view* glm::translate(3.0f, -3.0f, 4.0f)* glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+	cylinder2->render(view * glm::translate(1.0f, -3.0f, 4.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+>>>>>>> Stashed changes
+
+	cylinderPositions.push_back(glm::vec3(3.0f, -3.0f, 4.0f));
+	cylinderPositions.push_back(glm::vec3(1.0f, -3.0f, 4.0f));
 
 	cylinder3->setOverrideDiffuseMaterial(glm::vec4(1.0, 1.0, 0.0, 1.0));
 	cylinder3->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
 	cylinder3->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
 	cylinder3->setOverrideSpecularShininessMaterial(90.0f);
 	cylinder3->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+<<<<<<< Updated upstream
 	cylinder3->render(view * glm::translate(-3.0f, 0.0f, 0.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
 	
+=======
+
+	for (int i = -7; i > -22; i -= 5) {
+		
+		cylinder3->render(view * glm::translate((float)i, -3.0f, 20.0f) * glm::scale(3.0f, 5.0f, 3.0f)* glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+		cylinderPositions.push_back(glm::vec3((float)i, -3.0f, 20.0f));
+	}
+	for (int i = -20; i < 0; i += 5) {
+		
+		cylinder3->render(view * glm::translate(-7.0f, -3.0f, -(float)i) * glm::scale(3.0f, 5.0f, 3.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+		cylinderPositions.push_back(glm::vec3(-7.0f, -3.0f, -(float)i));
+	}
+	for (int i = -20; i < 50; i += 5) {
+		
+		cylinder3->render(view * glm::translate(-22.0f, -3.0f, -(float)i) * glm::scale(3.0f, 5.0f, 3.0f)* glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+		cylinderPositions.push_back(glm::vec3(-22.0f, -3.0f, -(float)i));
+	}
+	for (int i = -22; i < 0; i += 5) {
+		
+		cylinder3->render(view * glm::translate((float)i, -3.0f, -50.0f) * glm::scale(3.0f, 5.0f, 3.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+		cylinderPositions.push_back(glm::vec3((float)i, -3.0f, -50.0f));
+	}
+
+	cylinder3->render(view * glm::translate(-3.0f, -3.0f, 4.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+	cylinder3->render(view * glm::translate(-1.0f, -3.0f, 4.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+
+	cylinderPositions.push_back(glm::vec3(-3.0f, -3.0f, 4.0f));
+	cylinderPositions.push_back(glm::vec3(-1.0f, -3.0f, 4.0f));
+
+
+	lamp->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 1.0, 1.0));
+	lamp->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	lamp->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	lamp->setOverrideSpecularShininessMaterial(90.0f);
+	lamp->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+
+	lamp->render(view * glm::translate(7.0f, 4.5f, 20.0f) * glm::scale(1.0f, 2.5f, 1.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+
+	lamp2->setOverrideDiffuseMaterial(glm::vec4(1.0, 1.0, 0.0, 1.0));
+	lamp2->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	lamp2->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	lamp2->setOverrideSpecularShininessMaterial(90.0f);
+	lamp2->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+
+	lamp2->render(view * glm::translate(-7.0f, 4.5f, 20.0f) * glm::scale(1.0f, 2.5f, 1.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+
+	lamp3->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 1.0, 1.0));
+	lamp3->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	lamp3->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	lamp3->setOverrideSpecularShininessMaterial(90.0f);
+	lamp3->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+
+	lamp3->render(view * glm::translate(22.0f, 4.5f, -50.0f) * glm::scale(1.0f, 2.5f, 1.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+
+	lamp4->setOverrideDiffuseMaterial(glm::vec4(1.0, 1.0, 0.0, 1.0));
+	lamp4->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	lamp4->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	lamp4->setOverrideSpecularShininessMaterial(90.0f);
+	lamp4->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+
+	lamp4->render(view * glm::translate(-22.0f, 4.5f, -50.0f) * glm::scale(1.0f, 2.5f, 1.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+
+>>>>>>> Stashed changes
 	plane->setOverrideDiffuseMaterial( glm::vec4(1.0, 0.0, 0.0, 1.0));
 	plane->setOverrideAmbientMaterial(  glm::vec4(0.2 , 0.0, 0.0, 1.0));
 	plane->setOverrideSpecularMaterial( glm::vec4(1.0, 1.0, 1.0, 1.0));
@@ -135,6 +260,166 @@ bool useMat = false;
 	mesh->setOverrideEmissiveMaterial(  glm::vec4(1.0, 1.0, 1.0, 1.0));
 	mesh->render(view * glm::translate(lightPos.x,lightPos.y, lightPos.z)*glm::scale(.1f,.1f,.1f), projection, false);
 
+<<<<<<< Updated upstream
+=======
+	mesh2->setOverrideEmissiveMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	mesh2->render(view * glm::translate(lightPos2.x, lightPos2.y, lightPos2.z) , projection, false);
+
+	mesh3->setOverrideEmissiveMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	mesh3->render(view * glm::translate(lightPos3.x, lightPos3.y, lightPos3.z) , projection, false);
+
+	mesh4->setOverrideEmissiveMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	mesh4->render(view * glm::translate(lightPos4.x, lightPos4.y, lightPos4.z) , projection, false);
+
+	mesh5->setOverrideEmissiveMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	mesh5->render(view * glm::translate(lightPos5.x, lightPos5.y, lightPos5.z) , projection, false);
+
+
+	if (shoot) {
+		shootDir += vec3(0.0, 0.0, 0.0);
+		float scale = .5;
+		shootModel *= translate(shootDir * scale);
+		//shader.SetUniform("surfaceDiffuse", glm::vec4(1.0, 0.0, 1.0, 1.0));
+		bullet->setOverrideDiffuseMaterial(glm::vec4(0.0, 0.0, 1.0, 1.0));
+		//shader.SetUniform("surfaceAmbient", glm::vec4(0.0, 0.0, 1.0, 1.0));
+		bullet->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 1.0, 1.0));
+
+		vec4 bulletPos = shootModel[3];
+		vec4 targetPos = glm::vec4(2.0f, up_down, 20.0f, 1.0f);
+		vec4 targetPos2 = glm::vec4(-2.0f, up_down, 20.0f,1.0f);
+		vec4 targetPos3 = glm::vec4(0.0f, down_up, 20.0f, 1.0f);
+		vec4 targetPos4 = glm::vec4(14.0f, 1.0f, 15.0f, 1.0f);
+		vec4 targetPos5 = glm::vec4(-14.0f, -3.0f, 15.0f, 1.0f);
+		vec4 targetPos6 = glm::vec4(-2.0f, 1.0f, -45.0f, 1.0f);
+		vec4 targetPos7 = glm::vec4(2.0f, -3.0f, -45.0f, 1.0f);
+
+		float dist = glm::length(bulletPos - targetPos);
+		float dist2 = glm::length(bulletPos - targetPos2);
+		float dist3 = glm::length(bulletPos - targetPos3);
+		float dist4 = glm::length(bulletPos - targetPos4);
+		float dist5 = glm::length(bulletPos - targetPos5);
+		float dist6 = glm::length(bulletPos - targetPos6);
+		float dist7 = glm::length(bulletPos - targetPos7);
+		//printf("%f| %f, %f, %f \n", dist, bulletPos.x, bulletPos.y, bulletPos.z );
+		if (dist < 1.0) { // collision detection!
+			//shader.SetUniform("surfaceEmissive", glm::vec4(1.0, 0.0, 1.0, 1.0));
+			t1->setOverrideEmissiveMaterial(glm::vec4(1.0, 0.0, 1.0, 1.0));
+			tflag1 = true;
+		}
+
+		if (dist2 < 1.0) { // collision detection!
+			//shader.SetUniform("surfaceEmissive", glm::vec4(1.0, 0.0, 1.0, 1.0));
+			t2->setOverrideEmissiveMaterial(glm::vec4(1.0, 0.0, 1.0, 1.0));
+			tflag2 = true;
+		}
+
+
+		if (dist3 < 1.0) { // collision detection!
+			//shader.SetUniform("surfaceEmissive", glm::vec4(1.0, 0.0, 1.0, 1.0));
+			t3->setOverrideEmissiveMaterial(glm::vec4(1.0, 0.0, 1.0, 1.0));
+			tflag3 = true;;
+		}
+
+		if (dist4 < 1.0) { // collision detection!
+			//shader.SetUniform("surfaceEmissive", glm::vec4(1.0, 0.0, 1.0, 1.0));
+			t4->setOverrideEmissiveMaterial(glm::vec4(1.0, 0.0, 1.0, 1.0));
+			tflag4 = true;
+		}
+
+		if (dist5 < 1.0) { // collision detection!
+			//shader.SetUniform("surfaceEmissive", glm::vec4(1.0, 0.0, 1.0, 1.0));
+			t5->setOverrideEmissiveMaterial(glm::vec4(1.0, 0.0, 1.0, 1.0));
+			tflag5 = true;
+		}
+
+		if (dist6 < 1.0) { // collision detection!
+			//shader.SetUniform("surfaceEmissive", glm::vec4(1.0, 0.0, 1.0, 1.0));
+			t6->setOverrideEmissiveMaterial(glm::vec4(1.0, 0.0, 1.0, 1.0));
+			tflag6 = true;
+		}
+
+		if (dist7 < 1.0) { // collision detection!
+			//shader.SetUniform("surfaceEmissive", glm::vec4(1.0, 0.0, 1.0, 1.0));
+			t7->setOverrideEmissiveMaterial(glm::vec4(1.0, 0.0, 1.0, 1.0));
+			tflag7 = true;
+		}
+
+		bullet->render(view * shootModel * glm::scale(0.05f, 0.05f, 0.05f), projection, false);
+
+	}
+	if (start)
+	{
+		t1->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+		t2->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+		t3->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+		t4->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+		t5->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+		t6->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+		t7->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+		start = false;
+	}
+	if (tflag1 && tflag2 && tflag3 && tflag4 && tflag5 && tflag6 && tflag7)
+	{
+		coin->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+		coin->setOverrideDiffuseMaterial(glm::vec4(1.0, 1.0, 0.0, 1.0));
+		coin->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+		coin->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+		coin->setOverrideSpecularShininessMaterial(90.0f);
+		coin->render(view * glm::translate(0.0f,-3.0f,-15.0f) * glm::scale(9.5f, 9.5f, 9.5f), projection, useMat);
+	}
+
+	t1->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 0.0, 1.0));
+	t1->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	t1->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	t1->setOverrideSpecularShininessMaterial(90.0f);
+	t1->render(view * glm::translate(2.0f, up_down, 20.0f) * glm::rotate(-180.0f, 0.0f, 1.0f, 0.0f) * glm::scale(0.5f, 0.5f, 0.5f), projection, useMat);
+
+	t2->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 0.0, 1.0));
+	t2->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	t2->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	t2->setOverrideSpecularShininessMaterial(90.0f);
+	t2->render(view * glm::translate(-2.0f, up_down, 20.0f) * glm::rotate(-180.0f, 0.0f, 1.0f, 0.0f) * glm::scale(0.5f, 0.5f, 0.5f), projection, useMat);
+
+	t3->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 0.0, 1.0));
+	t3->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	t3->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	t3->setOverrideSpecularShininessMaterial(90.0f);
+	t3->render(view * glm::translate(0.0f, down_up, 20.0f) * glm::rotate(-180.0f, 0.0f, 1.0f, 0.0f) * glm::scale(0.5f, 0.5f, 0.5f), projection, useMat);
+
+	t4->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 0.0, 1.0));
+	t4->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	t4->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	t4->setOverrideSpecularShininessMaterial(90.0f);
+	t4->render(view * glm::translate(14.0f, 1.0f, 15.0f) * glm::rotate(-180.0f, 0.0f, 1.0f, 0.0f) * glm::scale(0.5f, 0.5f, 0.5f), projection, useMat);
+
+	t5->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 0.0, 1.0));
+	t5->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	t5->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	t5->setOverrideSpecularShininessMaterial(90.0f);
+	t5->render(view * glm::translate(-14.0f, -3.0f, 15.0f) * glm::rotate(-180.0f, 0.0f, 1.0f, 0.0f) * glm::scale(0.5f, 0.5f, 0.5f), projection, useMat);
+
+	t6->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 0.0, 1.0));
+	t6->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	t6->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	t6->setOverrideSpecularShininessMaterial(90.0f);
+	t6->render(view * glm::translate(-2.0f, 1.0f, -45.0f) * glm::scale(0.5f, 0.5f, 0.5f), projection, useMat);
+
+	t7->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 0.0, 1.0));
+	t7->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	t7->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	t7->setOverrideSpecularShininessMaterial(90.0f);
+	t7->render(view * glm::translate(2.0f, -3.0f, -45.0f) * glm::scale(0.5f, 0.5f, 0.5f), projection, useMat);
+
+	// Render current active model.
+
+	glDisable(GL_DEPTH_TEST);
+	meshspot->setOverrideEmissiveMaterial(glm::vec4(1.0, 0.0, 0.0, 1.0));
+	meshspot->render(glm::translate(1.0f, -1.0f, -4.5f)* glm::scale(.1f, .1f, .1f), projection, false);
+	reticle->setOverrideEmissiveMaterial(glm::vec4(1.0, 1.0, 1.0, 0.5f));
+	reticle->render(glm::translate(0.0f, 0.0f, -10.0f)* glm::scale(.1f, .1f, .1f), projection, false);
+	gun->render(glm::translate(1.0f, -1.0f, -2.0f)* glm::scale(.05f, .05f, .05f)* glm::rotate(-90.0f, 0.0f, 1.0f, 0.0f), projection, true);
+	glEnable(GL_DEPTH_TEST);
+>>>>>>> Stashed changes
 
 	glutSwapBuffers(); // Swap the buffers.
 
@@ -152,7 +437,9 @@ void reshape (int w, int h)
 	glViewport (0, 0, (GLsizei) w, (GLsizei) h);
 	checkError ("reshape");
 }
-bool useMouseCamera = false;
+
+bool useMouseCamera = true;
+
 void specialKeyboard(int Key, int x, int y)
 {
 	
@@ -161,7 +448,11 @@ void specialKeyboard(int Key, int x, int y)
 
 void keyboard(unsigned char key, int x, int y)
 {
-	switch (key) {
+	glm::vec3 futurePos;
+	bool hasCollision = false;
+
+	switch (key) 
+	{
 	case 27:
 		exit(0);
 		break;
@@ -169,19 +460,94 @@ void keyboard(unsigned char key, int x, int y)
 		useMouseCamera = !useMouseCamera;
 		break;
 	case 'w':
-		camera->OnKeyboardchar('w');
+		futurePos = camera->returnFuture('w');
+
+		for (int i = 0; i < cylinderPositions.size(); i++) 
+		{
+			if (glm::length(camera->returnFuture('w') - cylinderPositions[i]) < 5.0f)
+			{
+				
+				
+					hasCollision = true;
+					break;
+			
+			}
+		}
+		if (!hasCollision) {
+			camera->OnKeyboardchar('w');
+		}
+		else {
+		}
 		break;
 	case 's':
-		camera->OnKeyboardchar('s');
+		futurePos = camera->returnFuture('s');
+
+		for (int i = 0; i < cylinderPositions.size(); i++) {
+			if (glm::length(camera->returnFuture('s') - cylinderPositions[i]) < 5.0f)
+			{
+
+
+				hasCollision = true;
+				break;
+
+			}
+		}
+		if (!hasCollision) {
+			camera->OnKeyboardchar('s');
+		}
+		else {
+		}
 		break;
 	case 'a':
-		camera->OnKeyboardchar('a');
+		futurePos = camera->returnFuture('a');
+
+		for (int i = 0; i < cylinderPositions.size(); i++) 
+		{
+			if (glm::length(camera->returnFuture('a') - cylinderPositions[i]) < 5.0f)
+			{
+
+
+				hasCollision = true;
+				break;
+
+			}
+		}
+		if (!hasCollision) {
+			camera->OnKeyboardchar('a');
+		}
+		else {
+		}
 		break;
 	case 'd':
-		camera->OnKeyboardchar('d');
+		futurePos = camera->returnFuture('d');
+
+		for (int i = 0; i < cylinderPositions.size(); i++) 
+		{
+			if (glm::length(camera->returnFuture('d') - cylinderPositions[i]) < 5.0f)
+			{
+
+
+				hasCollision = true;
+				break;
+
+			}
+		}
+		if (!hasCollision) {
+			camera->OnKeyboardchar('d');
+		}
+		else {
+		}
 		break;
+<<<<<<< Updated upstream
    }
+=======
+	case 'f':
+		on = !on;
+		break;
+	}
+>>>>>>> Stashed changes
 }
+
 
 static void passiveMouse(int x, int y)
 {
