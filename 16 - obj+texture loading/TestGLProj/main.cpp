@@ -76,6 +76,7 @@ glm::vec4 lightPosition3 = glm::vec4(-7.0f, 7.7f, 20.0f, 1.0f);
 glm::vec4 lightPosition4 = glm::vec4(-22.0f, 7.7f, -50.0f, 1.0f);
 glm::vec4 lightPosition5 = glm::vec4(22.0f, 7.7f, -50.0f, 1.0f);
 glm::vec4 lightPositionSpot = glm::vec4(0.0f, 0.0f, -4.0f, 1.0f);
+std::vector<glm::vec3> cylinderPositions;
 
 QuatCamera * camera;
 
@@ -230,20 +231,26 @@ bool useMat = false;
 	cylinder2->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
 	for (int i = 7; i < 22; i += 5) {
 		cylinder2->render(view * glm::translate((float)i, -3.0f, 20.0f) * glm::scale(3.0f, 5.0f, 3.0f)*glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+		cylinderPositions.push_back(glm::vec3((float)i, -3.0f, 20.0f));
 	}
 	for (int i = -20; i < 0; i += 5) {
 		cylinder2->render(view * glm::translate(7.0f, -3.0f, -(float)i) * glm::scale(3.0f, 5.0f, 3.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+		cylinderPositions.push_back(glm::vec3(7.0f, -3.0f, -(float)i));
 	}
 	//cylinder2->render(view * glm::translate(3.0f, 0.0f, 0.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
 	for (int i = -20; i < 50; i += 5) {
 		cylinder2->render(view * glm::translate(22.0f, -3.0f, -(float)i) * glm::scale(3.0f, 5.0f, 3.0f)* glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+		cylinderPositions.push_back(glm::vec3(22.0f, -3.0f, -(float)i));
 	}
 	for (int i = 22; i > 0; i -= 5) {
 		cylinder2->render(view * glm::translate((float)i, -3.0f, -50.0f) * glm::scale(3.0f, 5.0f, 3.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+		cylinderPositions.push_back(glm::vec3((float)i, -3.0f, -50.0f));
 	}
 
 	cylinder2->render(view* glm::translate(3.0f, -3.0f, 4.0f)* glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
 	cylinder2->render(view * glm::translate(1.0f, -3.0f, 4.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+	cylinderPositions.push_back(glm::vec3(3.0f, -3.0f, 4.0f));
+	cylinderPositions.push_back(glm::vec3(1.0f, -3.0f, 4.0f));
 
 	cylinder3->setOverrideDiffuseMaterial(glm::vec4(1.0, 1.0, 0.0, 1.0));
 	cylinder3->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
@@ -253,20 +260,26 @@ bool useMat = false;
 
 	for (int i = -7; i > -22; i -= 5) {
 		cylinder3->render(view * glm::translate((float)i, -3.0f, 20.0f) * glm::scale(3.0f, 5.0f, 3.0f)* glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+		cylinderPositions.push_back(glm::vec3((float)i, -3.0f, 20.0f));
 	}
 	for (int i = -20; i < 0; i += 5) {
 		cylinder3->render(view * glm::translate(-7.0f, -3.0f, -(float)i) * glm::scale(3.0f, 5.0f, 3.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+		cylinderPositions.push_back(glm::vec3(-7.0f, -3.0f, -(float)i));
 	}
 	for (int i = -20; i < 50; i += 5) {
 		cylinder3->render(view * glm::translate(-22.0f, -3.0f, -(float)i) * glm::scale(3.0f, 5.0f, 3.0f)* glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+		cylinderPositions.push_back(glm::vec3(-22.0f, -3.0f, -(float)i));
 	}
 	for (int i = -22; i < 0; i += 5) {
 		cylinder3->render(view * glm::translate((float)i, -3.0f, -50.0f) * glm::scale(3.0f, 5.0f, 3.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+		cylinderPositions.push_back(glm::vec3((float)i, -3.0f, -50.0f));
 	}
 	//cylinder3->render(view * glm::translate(-3.0f, 0.0f, 0.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
 
 	cylinder3->render(view * glm::translate(-3.0f, -3.0f, 4.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
 	cylinder3->render(view * glm::translate(-1.0f, -3.0f, 4.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f), projection, useMat);
+	cylinderPositions.push_back(glm::vec3(-3.0f, -3.0f, 4.0f));
+	cylinderPositions.push_back(glm::vec3(-1.0f, -3.0f, 4.0f));
 
 	lamp->setOverrideDiffuseMaterial(glm::vec4(1.0, 0.0, 1.0, 1.0));
 	lamp->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
@@ -493,7 +506,11 @@ void specialKeyboard(int Key, int x, int y)
 
 void keyboard(unsigned char key, int x, int y)
 {
-	switch (key) {
+	glm::vec3 futurePos;
+	bool hasCollision = false;
+
+	switch (key)
+	{
 	case 27:
 		exit(0);
 		break;
@@ -501,23 +518,90 @@ void keyboard(unsigned char key, int x, int y)
 		useMouseCamera = !useMouseCamera;
 		break;
 	case 'w':
-		camera->OnKeyboardchar('w');
+		futurePos = camera->returnFuture('w');
+
+		for (int i = 0; i < cylinderPositions.size(); i++)
+		{
+			if (glm::length(camera->returnFuture('w') - cylinderPositions[i]) < 5.0f)
+			{
+
+
+				hasCollision = true;
+				break;
+
+			}
+		}
+		if (!hasCollision) {
+			camera->OnKeyboardchar('w');
+		}
+		else {
+		}
 		break;
 	case 's':
-		camera->OnKeyboardchar('s');
+		futurePos = camera->returnFuture('s');
+
+		for (int i = 0; i < cylinderPositions.size(); i++) {
+			if (glm::length(camera->returnFuture('s') - cylinderPositions[i]) < 5.0f)
+			{
+
+
+				hasCollision = true;
+				break;
+
+			}
+		}
+		if (!hasCollision) {
+			camera->OnKeyboardchar('s');
+		}
+		else {
+		}
 		break;
 	case 'a':
-		camera->OnKeyboardchar('a');
+		futurePos = camera->returnFuture('a');
+
+		for (int i = 0; i < cylinderPositions.size(); i++)
+		{
+			if (glm::length(camera->returnFuture('a') - cylinderPositions[i]) < 5.0f)
+			{
+
+
+				hasCollision = true;
+				break;
+
+			}
+		}
+		if (!hasCollision) {
+			camera->OnKeyboardchar('a');
+		}
+		else {
+		}
 		break;
 	case 'd':
-		camera->OnKeyboardchar('d');
+		futurePos = camera->returnFuture('d');
+
+		for (int i = 0; i < cylinderPositions.size(); i++)
+		{
+			if (glm::length(camera->returnFuture('d') - cylinderPositions[i]) < 5.0f)
+			{
+
+
+				hasCollision = true;
+				break;
+
+			}
+		}
+		if (!hasCollision) {
+			camera->OnKeyboardchar('d');
+		}
+		else {
+		}
 		break;
 	case 'f':
 		on = !on;
 		break;
-
-   }
+	}
 }
+
 
 static void passiveMouse(int x, int y)
 {
