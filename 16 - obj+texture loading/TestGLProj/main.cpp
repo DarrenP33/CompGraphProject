@@ -458,7 +458,7 @@ bool useMat = false;
 		coin->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
 		coin->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
 		coin->setOverrideSpecularShininessMaterial(90.0f);
-		coin->render(view * glm::translate(18.0f,10.0f, 25.0f)  * glm::rotate(90.0f, 1.0f, .0f, 0.0f) * glm::rotate(180.0f, .0f, .0f, 1.0f) * glm::scale(9.5f, 9.5f, 9.5f), projection, useMat);
+		coin->render(view * glm::translate(18.0f,7.0f, 25.0f)  * glm::rotate(90.0f, 1.0f, .0f, 0.0f) * glm::rotate(180.0f, .0f, .0f, 1.0f) * glm::scale(9.5f, 9.5f, 9.5f), projection, useMat);
 	}
 
 
