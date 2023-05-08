@@ -14,6 +14,8 @@ public:
 
 	 void OnMouse(int x, int y); // call this when mouse moves
 
+	glm::vec3 returnFuture(unsigned char Key);
+
 	glm::vec3 GetPos(); //returns current position
     
     glm::vec3 GetLookAtPoint(); // returns current look at point

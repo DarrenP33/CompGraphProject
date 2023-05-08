@@ -77,6 +77,7 @@ glm::vec4 lightPosition3 = glm::vec4(-7.0f, 5.7f, 20.0f, 1.0f);
 glm::vec4 lightPosition4 = glm::vec4(-22.0f, 5.7f, -50.0f, 1.0f);
 glm::vec4 lightPosition5 = glm::vec4(22.0f, 5.7f, -50.0f, 1.0f);
 glm::vec4 lightPositionSpot = glm::vec4(0.0f, 0.0f, -4.0f, 1.0f);
+std::vector<glm::vec3> cylinderPositions;
 
 QuatCamera * camera;
 
@@ -540,7 +541,11 @@ void specialKeyboard(int Key, int x, int y)
 
 void keyboard(unsigned char key, int x, int y)
 {
-	switch (key) {
+	glm::vec3 futurePos;
+	bool hasCollision = false;
+
+	switch (key)
+	{
 	case 27:
 		exit(0);
 		break;
@@ -548,23 +553,101 @@ void keyboard(unsigned char key, int x, int y)
 		useMouseCamera = !useMouseCamera;
 		break;
 	case 'w':
-		camera->OnKeyboardchar('w');
+		futurePos = camera->returnFuture('w');
+
+		if (glm::length(camera->returnFuture('w').x - 22.0f) < 5.0f || glm::length(camera->returnFuture('w').z - (-50.0f)) < 5.0f 
+			|| glm::length(camera->returnFuture('w').x - (-22.0f)) < 5.0f || glm::length(camera->returnFuture('w').z - (20.0f)) < 5.0f
+			|| glm::length(camera->returnFuture('w') - glm::vec3(7.0f, -3.0f, 15)) < 5.0f || glm::length(camera->returnFuture('w') - glm::vec3(7.0f, -3.0f, 10)) < 5.0f
+			|| glm::length(camera->returnFuture('w') - glm::vec3(7.0f, -3.0f, 10)) < 5.0f || glm::length(camera->returnFuture('w') - glm::vec3(7.0f, -3.0f, 5)) < 5.0f
+			|| glm::length(camera->returnFuture('w') - glm::vec3(-7.0f, -3.0f, 15)) < 5.0f || glm::length(camera->returnFuture('w') - glm::vec3(-7.0f, -3.0f, 10)) < 5.0f
+			|| glm::length(camera->returnFuture('w') - glm::vec3(-7.0f, -3.0f, 10)) < 5.0f || glm::length(camera->returnFuture('w') - glm::vec3(-7.0f, -3.0f, 5)) < 5.0f
+			|| glm::length(camera->returnFuture('w') - glm::vec3(-3.0f, -3.0f, 4.0f)) < 5.0f || glm::length(camera->returnFuture('w') - glm::vec3(-1.0f, -3.0f, 4.0f)) < 5.0f
+			|| glm::length(camera->returnFuture('w') - glm::vec3(3.0f, -3.0f, 4.0f)) < 5.0f || glm::length(camera->returnFuture('w') - glm::vec3(1.0f, -3.0f, 4.0f)) < 5.0f)
+		{
+			hasCollision = true;
+			break;
+
+		}
+		if (!hasCollision) {
+			camera->OnKeyboardchar('w');
+		}
 		break;
 	case 's':
-		camera->OnKeyboardchar('s');
+		futurePos = camera->returnFuture('s');
+		if (glm::length(camera->returnFuture('s').x - 22.0f) < 5.0f || glm::length(camera->returnFuture('s').z - (-50.0f)) < 5.0f
+			|| glm::length(camera->returnFuture('s').x - (-22.0f)) < 5.0f || glm::length(camera->returnFuture('s').z - (20.0f)) < 5.0f
+			|| glm::length(camera->returnFuture('s') - glm::vec3(7.0f, -3.0f, 15)) < 5.0f || glm::length(camera->returnFuture('s') - glm::vec3(7.0f, -3.0f, 10)) < 5.0f
+			|| glm::length(camera->returnFuture('s') - glm::vec3(7.0f, -3.0f, 10)) < 5.0f || glm::length(camera->returnFuture('s') - glm::vec3(7.0f, -3.0f, 5)) < 5.0f
+			|| glm::length(camera->returnFuture('s') - glm::vec3(-7.0f, -3.0f, 15)) < 5.0f || glm::length(camera->returnFuture('s') - glm::vec3(-7.0f, -3.0f, 10)) < 5.0f
+			|| glm::length(camera->returnFuture('s') - glm::vec3(-7.0f, -3.0f, 10)) < 5.0f || glm::length(camera->returnFuture('s') - glm::vec3(-7.0f, -3.0f, 5)) < 5.0f
+			|| glm::length(camera->returnFuture('s') - glm::vec3(-3.0f, -3.0f, 4.0f)) < 5.0f || glm::length(camera->returnFuture('s') - glm::vec3(-1.0f, -3.0f, 4.0f)) < 5.0f
+			|| glm::length(camera->returnFuture('s') - glm::vec3(3.0f, -3.0f, 4.0f)) < 5.0f || glm::length(camera->returnFuture('s') - glm::vec3(1.0f, -3.0f, 4.0f)) < 5.0f)
+		{
+			hasCollision = true;
+			break;
+
+		}
+		if (!hasCollision) {
+			camera->OnKeyboardchar('s');
+		}
 		break;
 	case 'a':
-		camera->OnKeyboardchar('a');
+		futurePos = camera->returnFuture('a');
+		if (glm::length(camera->returnFuture('a').x - 22.0f) < 5.0f || glm::length(camera->returnFuture('a').z - (-50.0f)) < 5.0f
+			|| glm::length(camera->returnFuture('a').x - (-22.0f)) < 5.0f || glm::length(camera->returnFuture('a').z - (20.0f)) < 5.0f
+			|| glm::length(camera->returnFuture('a') - glm::vec3(7.0f, -3.0f, 15)) < 5.0f || glm::length(camera->returnFuture('a') - glm::vec3(7.0f, -3.0f, 10)) < 5.0f
+			|| glm::length(camera->returnFuture('a') - glm::vec3(7.0f, -3.0f, 10)) < 5.0f || glm::length(camera->returnFuture('a') - glm::vec3(7.0f, -3.0f, 5)) < 5.0f
+			|| glm::length(camera->returnFuture('a') - glm::vec3(-7.0f, -3.0f, 15)) < 5.0f || glm::length(camera->returnFuture('a') - glm::vec3(-7.0f, -3.0f, 10)) < 5.0f
+			|| glm::length(camera->returnFuture('a') - glm::vec3(-7.0f, -3.0f, 10)) < 5.0f || glm::length(camera->returnFuture('a') - glm::vec3(-7.0f, -3.0f, 5)) < 5.0f
+			|| glm::length(camera->returnFuture('a') - glm::vec3(-3.0f, -3.0f, 4.0f)) < 5.0f || glm::length(camera->returnFuture('a') - glm::vec3(-1.0f, -3.0f, 4.0f)) < 5.0f
+			|| glm::length(camera->returnFuture('a') - glm::vec3(3.0f, -3.0f, 4.0f)) < 5.0f || glm::length(camera->returnFuture('a') - glm::vec3(1.0f, -3.0f, 4.0f)) < 5.0f)
+		{
+			hasCollision = true;
+			break;
+
+		}
+		for (int i = 0; i < cylinderPositions.size(); i++)
+		{
+			if (glm::length(camera->returnFuture('a') - cylinderPositions[i]) < 5.0f)
+			{
+
+
+				hasCollision = true;
+				break;
+
+			}
+		}
+		if (!hasCollision) {
+			camera->OnKeyboardchar('a');
+		}
 		break;
 	case 'd':
-		camera->OnKeyboardchar('d');
+		futurePos = camera->returnFuture('d');
+		if (glm::length(camera->returnFuture('d').x - 22.0f) < 5.0f || glm::length(camera->returnFuture('d').z - (-50.0f)) < 5.0f
+			|| glm::length(camera->returnFuture('d').x - (-22.0f)) < 5.0f || glm::length(camera->returnFuture('d').z - (20.0f)) < 5.0f
+			|| glm::length(camera->returnFuture('d') - glm::vec3(7.0f, -3.0f, 15)) < 5.0f || glm::length(camera->returnFuture('d') - glm::vec3(7.0f, -3.0f, 10)) < 5.0f
+			|| glm::length(camera->returnFuture('d') - glm::vec3(7.0f, -3.0f, 10)) < 5.0f || glm::length(camera->returnFuture('d') - glm::vec3(7.0f, -3.0f, 5)) < 5.0f
+			|| glm::length(camera->returnFuture('d') - glm::vec3(-7.0f, -3.0f, 15)) < 5.0f || glm::length(camera->returnFuture('d') - glm::vec3(-7.0f, -3.0f, 10)) < 5.0f
+			|| glm::length(camera->returnFuture('d') - glm::vec3(-7.0f, -3.0f, 10)) < 5.0f || glm::length(camera->returnFuture('d') - glm::vec3(-7.0f, -3.0f, 5)) < 5.0f
+			|| glm::length(camera->returnFuture('d') - glm::vec3(-3.0f, -3.0f, 4.0f)) < 5.0f || glm::length(camera->returnFuture('d') - glm::vec3(-1.0f, -3.0f, 4.0f)) < 5.0f
+			|| glm::length(camera->returnFuture('d') - glm::vec3(3.0f, -3.0f, 4.0f)) < 5.0f || glm::length(camera->returnFuture('d') - glm::vec3(1.0f, -3.0f, 4.0f)) < 5.0f)
+		{
+			hasCollision = true;
+			break;
+
+		}
+		if (!hasCollision) {
+			camera->OnKeyboardchar('d');
+		}
+		else {
+		}
 		break;
 	case 'f':
 		on = !on;
 		break;
-
-   }
+	}
 }
+
 
 static void passiveMouse(int x, int y)
 {
