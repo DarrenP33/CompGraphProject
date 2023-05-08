@@ -31,6 +31,7 @@ Model *cylinder2;
 Model *cylinder3;
 Model *plane;
 Model *plane2;
+Model* Wall[4];
 Model *gun;
 Model* monkeysphere;
 Model* t1;
@@ -195,7 +196,7 @@ void display(void)
 	shader.SetUniform("lightDiffuseSpot", glm::vec4(1.0, 1.0, 1.0, 1.0));
 	shader.SetUniform("lightSpecularSpot", glm::vec4(1.0, 1.0, 1.0, 1.0));
 	shader.SetUniform("lightAmbientSpot", glm::vec4(1.0, 1.0, 1.0, 1.0));
-	shader.SetUniform("shininessSpot", 100.0f);
+	shader.SetUniform("shininessSpot", 20.0f);
 	shader.SetUniform("spotExponent", 100.0f);
 	shader.SetUniform("linearAttenuationCoefficientSpot", .1f);
 
@@ -208,7 +209,7 @@ void display(void)
 		shader.SetUniform("on", 0.0f);
 	}
 
-	shader.SetUniform("cutOffAngle", glm::radians(1.0f));
+	shader.SetUniform("cutOffAngle", glm::radians(10.f));
 	shader.SetUniform("d", glm::vec4(0.0, 0.0, -1.0, 0.0));
 
 bool useMat = false;
@@ -305,8 +306,50 @@ bool useMat = false;
 	plane->setOverrideSpecularMaterial( glm::vec4(1.0, 1.0, 1.0, 1.0));
 	plane->setOverrideSpecularShininessMaterial( 90.0f);
 	plane->setOverrideEmissiveMaterial( glm::vec4(0.0, 0.0, 0.0, 1.0));
-	plane->render(view*glm::translate(-20.0f,-5.0f,-40.0f)*glm::scale(30.0f,1.0f,40.0f), projection, useMat);
+	plane->render(view*glm::translate(-20.0f,-5.0f,-48.0f)*glm::scale(40.0f,1.0f,50.0f), projection, useMat);
+
+
+	plane2->setOverrideDiffuseMaterial(glm::vec4(1., 1.0, 1.0, 1.0));
+	plane2->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	plane2->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	plane2->setOverrideSpecularShininessMaterial(90.0f);
+	plane2->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	plane2->render(view * glm::translate(-20.0f, 15.0f, 30.0f) * glm::rotate(180.0f, 1.0f, 0.0f, 0.0f) * glm::scale(40.0f, 1.0f, 50.0f), projection, useMat);
 	
+	//Front wall
+	Wall[0]->setOverrideDiffuseMaterial(glm::vec4(1., 1.0, 1.0, 1.0));
+	Wall[0]->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	Wall[0]->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	Wall[0]->setOverrideSpecularShininessMaterial(90.0f);
+	Wall[0] ->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	Wall[0] ->render(view * glm::translate(-20.0f, -5.0f, 41.f) * glm::rotate(270.0f, 1.0f, 0.0f, 0.0f) * glm::scale(40.0f, 1.f, 15.0f), projection, useMat);
+
+	//Back Wall
+	Wall[1]->setOverrideDiffuseMaterial(glm::vec4(1., 1.0, 1.0, 1.0));
+	Wall[1]->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	Wall[1]->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	Wall[1]->setOverrideSpecularShininessMaterial(90.0f);
+	Wall[1]->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	Wall[1]->render(view * glm::translate(-20.0f, 15.0f, -60.f) * glm::rotate(90.0f, 1.0f, 0.0f, 0.0f) * glm::scale(40.0f, 1.f, 15.0f), projection, useMat);
+
+	//Right Wall 
+	Wall[2]->setOverrideDiffuseMaterial(glm::vec4(1., 1.0, 1.0, 1.0));
+	Wall[2]->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	Wall[2]->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	Wall[2]->setOverrideSpecularShininessMaterial(90.0f);
+	Wall[2]->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	Wall[2]->render(view* glm::translate(-40.0f, 20.0f, 10.f)* glm::rotate(90.0f, 1.0f, 0.0f, 0.0f)* glm::rotate(-90.0f, 0.0f, 0.0f, 1.0f) * glm::scale(60.0f, 1.f, 15.0f), projection, useMat);
+
+
+	//Left Wall 
+	Wall[3]->setOverrideDiffuseMaterial(glm::vec4(1., 1.0, 1.0, 1.0));
+	Wall[3]->setOverrideAmbientMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	Wall[3]->setOverrideSpecularMaterial(glm::vec4(1.0, 1.0, 1.0, 1.0));
+	Wall[3]->setOverrideSpecularShininessMaterial(90.0f);
+	Wall[3]->setOverrideEmissiveMaterial(glm::vec4(0.0, 0.0, 0.0, 1.0));
+	Wall[3]->render(view * glm::translate(40.0f, -10.0f, 10.f) * glm::rotate(-90.0f, 1.0f, 0.0f, 0.0f) * glm::rotate(90.0f, 0.0f, 0.0f, 1.0f) * glm::scale(60.0f, 1.f, 15.0f), projection, useMat);
+
+
 	mesh->setOverrideEmissiveMaterial( glm::vec4(1.0, 1.0, 1.0, 1.0));
 	//mesh->render(view * glm::translate(lightPos.x,lightPos.y, lightPos.z)*glm::scale(.1f,.1f,.1f), projection, false);
 
@@ -590,6 +633,7 @@ int main(int argc, char** argv)
 	reticle = new Model(&shader, "models/torus.obj", "models/");
 	coin = new Model(&shader, "models/Winner.obj", "models/");
 	lamp = lamp2 = lamp3 = lamp4 = cylinder;
+	Wall[0] = Wall[1] = Wall[2] = Wall[3] = plane2;
 	mesh = mesh2 = mesh3 = mesh4 = mesh5 = bullet = sphere;
 	meshspot = monkeysphere;
 	t1 = new Model(&shader, "models/target.obj", "models/");
